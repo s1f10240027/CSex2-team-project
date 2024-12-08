@@ -15,8 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from musiq import views as blog_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", include("musiq.urls")),
 ]
