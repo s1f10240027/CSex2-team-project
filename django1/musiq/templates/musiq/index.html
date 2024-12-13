@@ -14,9 +14,9 @@
             <h1 class="title">MusiQ</h1>
             <canvas id="audio-spectrum"></canvas>
             <button id="mute-btn" class="mute-btn">音楽を再生する</button>
-            <button class="play-button">
+            <a class="play-button" href="{% url 'select_genre' %}">
                 <img src="{% static 'media/play-icon.png' %}" class="play-icon" alt="Play">
-            </button>
+            </a>
             <a href="#" class="login">ログイン</a>
             <div class="menu">
                 <button class="buttons">遊び方</button>
