@@ -1,0 +1,106 @@
+body {
+    margin: 0;
+    background-color: #fffacd; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    height: 100vh; 
+}
+
+.title {
+    margin: 0;
+    padding: 20px 0;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.play-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.play-icon {
+    size: 140%;
+    background-color: transparent;
+    width: 150px;
+    height: 150px;
+    animation: pulse 3s infinite;
+    display: block;
+    object-fit: contain;
+}
+
+.play-icon:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.mute-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.mute-btn:hover {
+    background-color: #ddd;
+}
+
+.menu {
+    margin-top: 100px;
+}
+.menu button {
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons {
+    background-color: #FFE20B;
+    color: white;
+}
+
+
+.login {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.login:hover {
+    text-decoration: underline;
+}
+
+
+#audio-spectrum {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.3; 
+}

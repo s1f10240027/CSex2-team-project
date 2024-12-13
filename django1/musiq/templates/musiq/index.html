@@ -1,1 +1,28 @@
 <!-- topページ -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MusiQ</title>
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+        <script type="text/javascript" src="{% static 'javascript/index.js' %}"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="title">MusiQ</h1>
+            <canvas id="audio-spectrum"></canvas>
+            <button id="mute-btn" class="mute-btn">音楽を再生する</button>
+            <button class="play-button">
+                <img src="{% static 'media/play-icon.png' %}" class="play-icon" alt="Play">
+            </button>
+            <a href="#" class="login">ログイン</a>
+            <div class="menu">
+                <button class="buttons">遊び方</button>
+                <button class="buttons">ランキング</button>
+                <button class="buttons">設定</button>
+            </div>
+        </div>
+    </body>
+</html>
