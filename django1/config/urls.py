@@ -21,4 +21,5 @@ from musiq import views as blog_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("musiq.urls")),
+    path("ranking/",),
 ]
