@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    background-color: #fffacd; 
+    align-items: center;
+    justify-content: center;
+}
+
+h1{
+    text-align: center;
+    margin: 10;
+    font-size: 70;
+}
+
+p{
+    font-size: 25;
+}
