@@ -159,8 +159,35 @@ def Ingame_savedata(request):
     else:
         return redirect(index)
 
-        
+def CheckSpotify(request):
+    result_data = None
+    form_data = {"title": "", "artist": ""}
+    NotFound = None
 
+    if request.method == "POST":
+        form_data["title"] = request.POST.get("title")
+        form_data["artist"] = request.POST.get("artist")
+        query = f"track:{form_data["title"]}"
+        if form_data["artist"]:
+            query += f" artist:{form_data["artist"]}"
+        
+        try:
+            result = sp.search(q=query, type="track", limit=1)
+            items = result['tracks']['items']
+
+            if items:
+                track = items[0]
+                result_data = {
+                    "title": track["name"],
+                    "artist": track["artists"][0]["name"],
+                    "album_image": track["album"]["images"][0]["url"],
+                }
+            else:
+                NotFound = {"message": "曲が見つかりませんでした。"}
+        except:
+            NotFound = {"message": "曲が見つかりませんでした。"}
+
+    return render(request, "musiq/CheckSpotify.html", {"result_data": result_data, "form_data": form_data, "NotFound": NotFound})   
 
 def ranking(request):
     return render(request, "musiq/ranking.html")

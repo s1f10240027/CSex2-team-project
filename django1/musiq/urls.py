@@ -8,4 +8,5 @@ urlpatterns = [
     path("Ranking", views.ranking, name="ranking"),
     path("GameInfo", views.rules, name="rules"),
     path('Ingame_savedata', views.Ingame_savedata, name='Ingame_savedata'),
+    path("spotify", views.CheckSpotify, name="CheckSpotify"),
 ]
