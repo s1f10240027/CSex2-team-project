@@ -1,10 +1,62 @@
 body {
     margin: 0;
-    background-color: #fffacd; 
+    background-color: #fffacd;
     display: flex;
+    justify-content: center; /* 横方向に中央揃え */
+    align-items: center;     /* 縦方向に中央揃え */
+    height: 100vh;           /* 画面全体の高さに設定 */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 80%;  /* 幅を80%に制限 */
+    max-width: 1200px;  /* 最大幅を設定（必要に応じて調整） */
+    margin: 0 auto;     /* 両サイドの余白を自動調整 */
 }
+
+
+
+/* 注意事項画面 */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 1000;
+}
+
+#overlay p {
+    margin: 10px 0;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+#overlay .touch-start {
+    margin-top: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    color: #f5b700;
+    text-shadow: 0 0 8px rgba(245, 183, 0, 0.8);
+}
+
+/* 初期状態でメインコンテンツを隠す */
+#main-content {
+    display: none;
+}
+
+
+
 .container {
     display: flex;
     flex-direction: column;
