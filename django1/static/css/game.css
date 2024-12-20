@@ -1,4 +1,12 @@
+.body {
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
 .container {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 20px;
     background-color: #fffacd;
     display: flex;
     flex-direction: column; 
@@ -64,6 +72,8 @@
 
 
 #playmusic {
+    width: 300px;
+    height: 100px;
     background-color: #f1f3f4;
     border: none;
     color: black;
@@ -78,6 +88,9 @@
     transition: 0.1s ease;
 }
 
+#playmessage {
+    font-size: 130%;
+}
 #playmusic:hover {
     background-color: #e0e0e0;
 }
@@ -111,4 +124,8 @@ progress::-webkit-progress-bar {
 progress::-webkit-progress-value {
     background-color: black;
     border-radius: 5px;
+}
+
+.hidden {
+    display: none;
 }
