@@ -13,11 +13,16 @@
         <div class="container">
             <img src="{% static 'media/secret.png' %}" id="jacket">
             <audio id="audio" src="{% static 'musics/' %}{{ title }}.mp3"></audio>
-            <button id="playmusic">
-                <div id="playmessage">クリックで再生</div>
-                <span id="current-time">0:00 / 0:10</span>
-                <progress id="progress-bar" value="0" max="100"></progress>
-            </button>
+            <form action="{% url 'Ingame_savedata' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="isCorrect" name="isCorrect" value="">
+                <input type="hidden" id="answer_time" name="answer_time" value="">
+                <button type="button" id="playmusic">
+                    <div id="playmessage">クリックで再生</div>
+                    <span id="current-time">0:00 / 0:10</span>
+                    <progress id="progress-bar" value="0" max="100"></progress>
+                </button>
+            </form>
             <br><br>
             <div class="options">
                 <div class="row">
