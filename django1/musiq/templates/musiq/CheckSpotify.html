@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Spotify検索</title>
+    </head>
+    <body>
+        <h1>Spotify検索</h1>
+        <form method="post" onsubmit="showLoading()">
+        {% csrf_token %}
+        <div>
+            <label for="titleInput">曲のタイトル</label><br>
+            <input 
+            id="titleInput" 
+            name="title" 
+            type="text" 
+            value="{{ form_data.title }}">
+        </div>
+        <div>
+            <label for="artistInput">作曲者(任意)</label><br>
+            <input 
+            id="artistInput" 
+            name="artist" 
+            type="text" 
+            value="{{ form_data.artist }}">
+        </div>
+        <br>
+        <div>
+            <button type="submit">検索</button>
+        </div>
+        </form>
+        
+        <p id="loading" style="display: none;">検索中...</p>
+        <script>
+            function showLoading() {
+            document.getElementById("loading").style.display = "block";
+            }
+        </script>
+        {% if NotFound %}
+            <p style="color: red;">{{ NotFound.message }}</p>
+        {% endif %}
+        {% if result_data %}
+            <h2>検索結果</h2>
+            <p>タイトル: {{ result_data.title }}</p>
+            <p>作曲者: {{ result_data.artist }}</p>
+            <img src="{{ result_data.album_image }}" alt="ジャケット" style="width: 200px;">
+        {% endif %}
+    </body>
+</html>
