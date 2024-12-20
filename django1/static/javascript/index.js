@@ -1,7 +1,13 @@
-window.addEventListener('load', () => {
-    // スペクトラム用
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('touch-start').addEventListener('click', () => {
+        document.getElementById('overlay').style.display = 'none'; // 注意事項画面を非表示
+        document.getElementById('main-content').style.display = 'block'; // メインコンテンツを表示
+        StartSuomiSpectrum()
+    });
+});
+
+function StartSuomiSpectrum() {
     const audio = new Audio("/static/media/top.mp3");
-    console.log(audio)
     audio.loop = true;
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -58,6 +64,10 @@ window.addEventListener('load', () => {
         }
     }
 
+    audio.play();
+    drawSpectrum();
+
+    // ミュートボタンの処理
     document.getElementById('mute-btn').addEventListener('click', function () {
         const button = this;
     
@@ -74,9 +84,4 @@ window.addEventListener('load', () => {
             audio.pause();
         }
     });
-    
-
-    // 初期はミュート状態
-    audio.pause();
-    document.getElementById('mute-btn').textContent = '音楽を再生する';
-});
+}
