@@ -8,5 +8,11 @@
     </head>
     <body>
         <p>曲のジャンル選択画面だよ</p>
+        {% for index, value in genre.items %}
+            <button>
+                <a href="{% url 'game' value %}">{{ value }}</a>
+            </button>
+            <br>
+        {% endfor %}
     </body>
 </html>
