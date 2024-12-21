@@ -13,13 +13,17 @@ genres = {
 musics = [
     #Title, Artist(optional)
     ["Last - Moment", "onoken", 9],
-    ["Pentiment", "Nothing", 9],
-    ["Arcana Eden", "La", 9],
-    ["テトリス", "", 7],
-    ["POP IN 2", "", 2],
-    ["翼の生えた希望", "", 4],
-    ["幾望の月", "", 7],
-    ["星座になれたら", "", 2]
+    ["Pentiment", "Nothing But Requiem", 9],
+    ["Arcana Eden", "Laur", 9],
+    ["テトリス", "柊マグネタイト", 7],
+    ["POP IN 2", "B小町", 2],
+    ["翼の生えた希望", "ロビン", 4],
+    ["幾望の月", "なきゃむりゃ", 7],
+    ["星座になれたら", "結束バンド", 2],
+    ["オブソミート (feat. 初音ミク&重音テト)", "32ki", 7],
+    ["アカリがやってきたぞっ", "GYARI(ココアシガレットP)", 7],
+    ["アスノヨゾラ哨戒班", "Orangestar", 7]
+
     #["White Night", ""],
     #["Moon Halo", ""],
     #["水槽に沈む街", ""],
