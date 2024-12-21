@@ -1,18 +1,22 @@
-<!-- ジャンル選択画面 -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ジャンル選択</title>
+        <link rel="stylesheet" href="{% static 'css/genre_selection.css' %}">
     </head>
     <body>
-        <p>曲のジャンル選択画面だよ</p>
-        {% for index, value in genre.items %}
-            <button>
-                <a href="{% url 'game' value %}">{{ value }}</a>
-            </button>
-            <br>
-        {% endfor %}
+        <div class="container">
+            <h2>ジャンルを選んでね</h2>
+            <div class="button-container">
+                {% for index, value in genre.items %}
+                    <button class="genre-button" onclick="location.href='{% url 'game' value %}'">
+                        {{ value }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
     </body>
 </html>

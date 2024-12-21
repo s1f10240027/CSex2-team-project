@@ -23,12 +23,24 @@ def select_genre(request):
     if "session_id" in request.session:
         print("既存のIDは", request.session["session_id"], "です")
         try:
-            previous = GameSession.objects.get(session_id = request.session["session_id"])
-            previous.delete()
+            previous_session = GameSession.objects.get(session_id = request.session["session_id"])
+            previous_session.delete()
             print("GameSession が削除されました")
         except:
             print("該当のGameSessionは見つかりませんでした")
-        del request.session["session_id"]
+
+        try:
+            del request.session["session_id"]
+            print("session_idがリクエストから削除されました")
+        except:
+            print("session_idはリクエストに存在しません")
+
+        try:
+            del request.session["matched_song"]
+            print("matched_songがリクエストから削除されました")
+        except:
+            print("matched_songはリクエストに存在しません")
+
         request.session.save() 
         print("既存のsessionIDを削除しました")
     else:
@@ -36,10 +48,32 @@ def select_genre(request):
     return render(request, "musiq/select_genre.html", {"genre": genres})
 
 def game(request, value):
-    
     if ("session_id" not in request.session) or (request.session["session_id"] == None):
         session_id = random.randint(1000,9999)
+
+        matched_song = []
+        lacksong_state = None
+        genreNum = 0
+        for i, v in genres.items():
+            if v == value:
+                genreNum = i
+                break
+        if genreNum == 0:
+            matched_song = musics.copy()
+        else:
+            for i in musics:
+                if i[2] == genreNum:
+                    matched_song.append(i)
+
+        if len(matched_song) < 5:
+            lacksong_state = True
+            value = genres[0]
+            matched_song.clear()
+            matched_song = musics.copy()
+
         request.session["session_id"] = session_id
+        request.session["matched_song"] = matched_song
+        request.session.save()
 
         GameSession.objects.create(
             session_id = session_id,
@@ -51,36 +85,51 @@ def game(request, value):
             genre = value
         )
         print("データを作成")
-    else:
-        print("既存のsessoinid", request.session["session_id"])
-    genreNum = 0
-    matched_song = []
+        print(request.session["matched_song"])
+        print("=AAAAAAAAAAAAAAAAAAAAAAA")
+        if lacksong_state == True:
+            print("[ERROR] ジャンルに対する楽曲数が不足しているため、Allの表示を行います")
+            return redirect(game, genres[0])
+        else:
+            print("既存のsessoinid", request.session["session_id"])
+
+    genre_songs_list = []
+    genreNum2 = 0
     for i, v in genres.items():
         if v == value:
-            genreNum = i
+            genreNum2 = i
             break
-    if genreNum == 0:
-        matched_song = musics.copy()
+    if genreNum2 == 0:
+        genre_songs_list = musics.copy()
     else:
         for i in musics:
-            if i[2] == genreNum:
-                matched_song.append(i)
-    if len(matched_song) < 4:
-        print("[ERROR] ジャンルに対する楽曲数が不足しているため、Allの表示を行います")
-        return redirect(game, genres[0])
+            if i[2] == genreNum2:
+                genre_songs_list.append(i)
+
     options = [None] * 4
-    correct_music = random.choice(matched_song)
+    correct_music = random.choice(request.session["matched_song"])
+    print("")
+    print(genre_songs_list)
+    print("")
+    print(correct_music)
+    print("")
+    
     index_list = [0,1,2,3]
     option_number = random.choice(index_list)
     options[option_number] = correct_music[0]
+
     index_list.remove(option_number)
-    matched_song.remove(correct_music)
+    genre_songs_list.remove(correct_music)
+
+    request.session["matched_song"].remove(correct_music)
+    request.session.save()
+
     while len(index_list) != 0:
         option_number = random.choice(index_list)
-        incorrect_music = random.choice(matched_song)
+        incorrect_music = random.choice(genre_songs_list)
         options[option_number] = incorrect_music[0]
         index_list.remove(option_number)
-        matched_song.remove(incorrect_music)
+        genre_songs_list.remove(incorrect_music)
 
     # 曲名とアーティスト名(任意)でデータ取得
     query = f"track:{correct_music[0]}"
@@ -115,10 +164,10 @@ def CalcScore(correct,consecutive,avetime):
     #平均回答時間
     if avetime >= 8000:
         score += 0
-    elif avetime <= 1500:
+    elif avetime <= 2000:
         score += 10
     else:
-        score += (11.5 - (avetime/1000))
+        score += (12 - (avetime/1000))
 
     return score
 

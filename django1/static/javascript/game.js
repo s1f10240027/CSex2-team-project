@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const CorrectAudio = new Audio('/static/media/correct.mp3');
             const IncorrectAudio = new Audio('/static/media/incorrect.mp3');
             TimeDiff = new Date().getTime() - t1.getTime();
-            console.log(`Time: ${TimeDiff}`) //ms
             if (event.target.textContent == event.target.getAttribute('data-correct')){
                 isCorrect = 1;
                 CorrectAudio.play();
@@ -123,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 message.textContent = "再生中";
                 playButton.classList.add('playing');
                 playButton.classList.remove('paused');
-                console.log(audio.currentTime, audio.volume)
                 if (audio.currentTime == 0){ 
                     audio.volume = 0;
                 };
