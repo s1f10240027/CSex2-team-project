@@ -1,13 +1,37 @@
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem('last_page', window.location.pathname);    
+});
+
 document.addEventListener('DOMContentLoaded', () => {
+    console.log(localStorage)
+    if (window.location.pathname == localStorage.getItem('last_page')){
+        localStorage.clear('musicPlaying'); 
+        console.log("yo")
+    }
+
+    const isPlaying = localStorage.getItem('musicPlaying');
+    if (isPlaying === 'true') {
+        document.getElementById('overlay').style.display = 'none'; // 注意事項画面を非表示
+        document.getElementById('main-content').style.display = 'block'; // メインコンテンツを表示
+        StartSuomiSpectrum()
+    }else {
+        document.getElementById('overlay').style.display = 'block'; // 注意事項画面を非表示
+    }
+    
     document.getElementById('touch-start').addEventListener('click', () => {
         document.getElementById('overlay').style.display = 'none'; // 注意事項画面を非表示
         document.getElementById('main-content').style.display = 'block'; // メインコンテンツを表示
+        localStorage.setItem('musicPlaying', 'true');
         StartSuomiSpectrum()
     });
 });
 
+
+
+
 function StartSuomiSpectrum() {
     const audio = new Audio("/static/media/top.mp3");
+    console.log(audio)
     audio.loop = true;
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -64,7 +88,9 @@ function StartSuomiSpectrum() {
         }
     }
 
-    audio.play();
+    audio.play().catch((error) => {
+        console.error('音楽の再生に失敗しました:', error);
+    });
     drawSpectrum();
 
     // ミュートボタンの処理
