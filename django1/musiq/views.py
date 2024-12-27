@@ -1,11 +1,14 @@
 #pip install spotipy --upgrade が必須
 
+import re
 import random
 import spotipy
-from musiq.models import GameSession
+from musiq.models import GameSession, Account
+from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.hashers import make_password, check_password
 from spotipy.oauth2 import SpotifyClientCredentials
-
 from .music import musics, genres
 
 #Spotifyからのデータ取得 (動作停止済)
@@ -15,10 +18,85 @@ auth_manager = SpotifyClientCredentials(client_id=client_id, client_secret=clien
 sp = spotipy.Spotify(auth_manager=auth_manager)
 #================
 
+def login_view(request):
+    if request.method == 'POST':
+        if request.POST["name"] == "":
+            print("ログインです")
+            account = ""
+            email_or_username = request.POST.get('email', '')
+            password = request.POST.get('password', '')
+
+            # フォームの入力がない場合、エラーメッセージを表示
+            if email_or_username == "" or password == "":
+                print(request, "メールアドレス/ユーザー名またはパスワードが空です。")
+                return redirect('login')
+
+            regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+            if re.match(regex, email_or_username):
+                # メールアドレスの場合
+                try:
+                    account = Account.objects.get(email=email_or_username)
+                    username = account.username
+                except Account.DoesNotExist:
+                    print(request, "メールアドレスが登録されていません。")
+                    return redirect('login')
+                
+            else:
+                # ユーザー名の場合
+                try:
+                    account = Account.objects.get(username=email_or_username)
+                    username = account.username
+                except Account.DoesNotExist:
+                    print(request, "ユーザー名が登録されていません。")
+                    return redirect('login')
+                
+            # パスワードの確認（ハッシュ化したパスワードを比較）
+            if check_password(password, account.password):
+                request.session['username'] = account.username  
+                return redirect('index')
+            else:
+                print(request, "パスワードが正しくありません。")
+                return redirect('login')
+
+
+        else:
+            print("新規登録です")
+
+            username = request.POST["name"]
+            email = request.POST["email"]
+            password = request.POST["password"]
+
+            # ユーザーがすでに存在するかをチェック
+            if Account.objects.filter(email=email).exists():
+                messages.error(request, "このメールアドレスは既に登録されています。")
+                return render(request, 'musiq/login.html', {'username': username, 'email': email, 'password': password, 'confirm': password, 'sign_up': True})
+            if Account.objects.filter(username=username).exists():
+                messages.error(request, "このユーザー名は既に使用されています。")
+                return render(request, 'musiq/login.html', {'username': username, 'email': email, 'password': password, 'confirm': password, 'sign_up': True})
+
+            # パスワードをハッシュ化
+            hashed_password = make_password(password)
+
+            # 新規アカウントの作成
+            new_user = Account.objects.create(
+                username=username,
+                email=email,
+                password=hashed_password,
+            )
+            messages.success(request, "新規登録が完了しました！")
+            login(request, new_user)
+            return redirect('index') 
+    else:
+        return render(request, "musiq/login.html")
 
 def index(request):
-    return render(request, "musiq/index.html")
+    name = request.session.get('username', None)
+    if name:
+        user = Account.objects.get(username=name)
+        return render(request, 'musiq/index.html', {'user': user})
 
+    return render(request, "musiq/index.html", {'user': None})
+    
 def select_genre(request):
     if "session_id" in request.session:
         print("既存のIDは", request.session["session_id"], "です")
