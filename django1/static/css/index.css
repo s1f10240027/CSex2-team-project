@@ -17,6 +17,29 @@ body {
     margin: 0 auto;   
 }
 
+.title {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 100px; 
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    color: #4f4f4f;
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.3), 
+        -1px -1px 2px rgba(255, 255, 255, 0.5);;
+}
+.q {
+    font-size: 150%;
+    color: #383838;
+    text-shadow: 
+        3px 3px 6px rgba(0, 0, 0, 0.4),
+        -2px -2px 4px rgba(255, 255, 255, 0.3); ;
+}
+
+
 
 /* 注意事項画面 */
 #overlay {
@@ -38,15 +61,20 @@ body {
     margin: 10px 0;
     text-align: center;
     font-size: 1.2em;
+    transform: translate(0%, 400%);
 }
 
 #overlay .touch-start {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
     font-size: 1.5em;
     font-weight: bold;
     cursor: pointer;
     color: #f5b700;
     text-shadow: 0 0 8px rgba(245, 183, 0, 0.8);
+    transform: translate(0%, 600%);
 }
 
 #main-content {
@@ -66,6 +94,7 @@ body {
     padding: 20px 0;
     font-size: 36px;
     font-weight: bold;
+    text-align: center;
 }
 
 .play-button {
@@ -130,16 +159,52 @@ body {
 }
 
 
-.login {
+.login_container {
     position: absolute;
     top: 20px;
     left: 20px;
-    font-size: 18px;
-    text-decoration: none;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    padding: 3px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .login:hover {
-    text-decoration: underline;
+    background-color: #ccc; /* ホバー時の背景色 */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.login_icon {
+    width: 30px; /* アイコンサイズ */
+    height: 30px;
+    margin-right: 10px; /* テキストとの間隔 */
+    opacity: 30%;
+}
+
+.login_text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.login_name {
+    font-weight: bold;
+    color: #333;
+}
+
+.login_status {
+    font-size: 12px;
+    color: #666;
 }
 
 
