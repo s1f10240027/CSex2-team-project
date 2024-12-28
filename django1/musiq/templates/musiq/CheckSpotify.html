@@ -43,9 +43,39 @@
         {% endif %}
         {% if result_data %}
             <h2>検索結果</h2>
-            <p>タイトル: {{ result_data.title }}</p>
-            <p>作曲者: {{ result_data.artist }}</p>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <p id="official_title">タイトル: {{ result_data.title }}</p>
+                <button id="copy1" onclick="copyToClipboard('official_title', 'copy1')">Copy</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <p id="official_artist">作曲者: {{ result_data.artist }}</p>
+                <button id="copy2" onclick="copyToClipboard('official_artist', 'copy2')">Copy</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <p id="list">コピペ用: ["{{ result_data.title }}", "{{ result_data.artist }}", ジャンル],</p>
+                <button id="copy3" onclick="copyToClipboard('list', 'copy3')">Copy</button>
+            </div>
             <img src="{{ result_data.album_image }}" alt="ジャケット" style="width: 200px;">
         {% endif %}
+        <script>
+            function copyToClipboard(elementId, buttonId) {
+                const target = document.getElementById(elementId);
+                const button = document.getElementById(buttonId);
+                if (target && button.textContent == 'Copy') {
+                    console.log(button)
+                    const text = target.textContent.replace(/^.+: /, '');
+                    navigator.clipboard.writeText(text)
+                        .then(() => {
+                            button.textContent = 'Copied';
+                            setInterval(() => {
+                                button.textContent = 'Copy';
+                            }, 1000);
+                        })
+                        .catch(err => {
+                            console.error("コピーに失敗しました:", err);
+                        });
+                };
+            }
+        </script>
     </body>
 </html>
