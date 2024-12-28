@@ -5,6 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/ranking.css' %}">
     </head>
     <body>
         <h1>ランキング表示画面だよ</h1>
@@ -17,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for player in players %}
+              {% for player in players %}
                 <tr>
                     <td>
                         {{ forloop.counter }}
@@ -26,7 +27,7 @@
                         {{ player.score }}
                     </td>
                 </tr>
-                {% endfor %}
+              {% endfor %}
             </tbody>
         </table>
     </body>
