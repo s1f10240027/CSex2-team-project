@@ -1,0 +1,131 @@
+.body {
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+.container {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fffacd;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;    
+    height: 100vh;         
+}
+
+#jacket {
+    height: 200px;
+    width: 200px; 
+    border-radius: 50%; 
+    object-fit: contain;
+    border: 2px solid #333;
+    margin-bottom: 20px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;              
+}
+
+.row {
+    display: flex;        
+    justify-content: center;
+    gap: 10px;              
+}
+
+.option {
+    width: 250px;
+    height: 50px;
+    padding: 10px 20px; 
+    border: 1px solid #333; 
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: transparent;
+    background-color: #f0f0f0; 
+    text-overflow: ellipsis;
+    transition: background-color 0.3s; 
+}
+
+.option:enabled:hover {
+    background-color: #ddd;
+}
+
+.option:disabled {
+    cursor: default;        
+}
+
+.correct {
+    background-color: red;  
+    color: white;          
+}
+
+.incorrect {
+    background-color: gray; 
+    color: black;           
+}
+
+
+#playmusic {
+    width: 300px;
+    height: 100px;
+    background-color: #f1f3f4;
+    border: none;
+    color: black;
+    box-shadow: 0 9px #d6d6d6;
+    padding: 15px 32px;
+    display: block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 40%;
+    position: relative; 
+    transition: 0.1s ease;
+}
+
+#playmessage {
+    font-size: 130%;
+}
+#playmusic:hover {
+    background-color: #e0e0e0;
+}
+
+#playmusic:active {
+    top: 6px; 
+    box-shadow: 0 3px #b0b0b0;
+    
+}
+
+#current-time {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+/* 進行状況バーのスタイル */
+progress {
+    width: 100px;
+    height: 10px;
+    margin-left: 10px;
+    background-color: grey;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+    background-color: grey;
+    border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+    background-color: black;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}

@@ -5,23 +5,47 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
         <title>MusiQ</title>
         <link rel="stylesheet" href="{% static 'css/index.css' %}">
         <script type="text/javascript" src="{% static 'javascript/index.js' %}"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     </head>
     <body>
         <div class="container">
-            <h1 class="title">MusiQ</h1>
-            <canvas id="audio-spectrum"></canvas>
-            <button id="mute-btn" class="mute-btn">音楽を再生する</button>
-            <a class="play-button" href="{% url 'select_genre' %}">
-                <img src="{% static 'media/play-icon.png' %}" class="play-icon" alt="Play">
-            </a>
-            <a href="#" class="login">ログイン</a>
-            <div class="menu">
-                <button class="buttons">遊び方</button>
-                <button class="buttons">ランキング</button>
-                <button class="buttons">設定</button>
+            <div id="overlay" style="display:none;">
+                <p>このサイトでは音が流れます。<br>音量にご注意ください。</p>
+                <div class="touch-start" id="touch-start">Touch to Start...</div>
+            </div>
+            <div id="main-content" style="display:none;">
+                <h1 class="title">Musi<div class="q">Q</div></h1>
+                <canvas id="audio-spectrum"></canvas>
+                <button id="mute-btn" class="mute-btn">音楽を再生する</button>
+                <a class="play-button" href="{% url 'select_genre' %}">
+                    <img src="{% static 'media/play-icon.png' %}" class="play-icon" alt="Play">
+                </a>
+                <div class="login_container">
+                    {% if user %}
+                        <div class="login" onclick="location.href='{% url 'login' %}'">
+                            <img src="{% static 'media/login_face.png' %}" alt="ログイン中アイコン" class="login_icon">
+                            <div class="login_text">
+                                <span class="login_name">{{ user.username }}</span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="login" onclick="location.href='{% url 'login' %}'">
+                            <img src="{% static 'media/login_face.png' %}" alt="未ログインアイコン" class="login_icon">
+                            <div class="login_text">
+                                <span class="login_name">未ログイン</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="menu">
+                    <button class="buttons">遊び方</button>
+                    <button class="buttons">ランキング</button>
+                    <button class="buttons">設定</button>
+                </div>
             </div>
         </div>
     </body>

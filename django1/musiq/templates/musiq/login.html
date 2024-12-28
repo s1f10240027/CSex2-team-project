@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
+        <title>login</title>
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
+        <script type="text/javascript" src="{% static 'javascript/login.js' %}"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="topButton_container">
+                <a href="{% url 'index' %}" class="topButton">
+                    <img src="{% static 'media/home.png' %}" alt="Home Icon">TOP
+                </a>
+            </div>
+            <div class="main_box">
+                <form action="{% url 'login' %}" method="post" id="form" data-signup="{{ sign_up|yesno:'True,False' }}">    
+                    {% csrf_token %}
+                    <div class="tabs_container">
+                        <ul class='ul_tabs'>
+                            <li class="active">
+                                <a href="#sign_in" onclick="sign_in()">ログイン</a>
+                                <span class="underline"></span>
+                            </li>
+                            <li>
+                                <a href="#sign_up" onclick="sign_up()">アカウント作成</a>
+                                <span class="underline"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="input_container">
+                        <input type="text" class="form_input " placeholder="ユーザー名" name="name" value="{{ request.POST.name|default:'' }}">                   
+                        <div id="name_error" class="error_messages"></div>
+                        <input type="text" class="form_input visible active_input" placeholder="メールアドレス または ユーザー名" name="email" value="{{ request.POST.email|default:'' }}">
+                        <div id="email_error" class="error_messages"></div>
+                        <input type="password" class="form_input password_input visible active_input" placeholder="パスワード" name="password" value="{{ request.POST.password|default:'' }}">
+                        <input type="password" class="form_input password_input" placeholder="パスワード(再入力)" name="confirm" value="{{ request.POST.password|default:'' }}">
+                        <div id="password_error" class="error_messages"></div> 
+                    </div>
+                    <div class="button_container">
+                        <button class="submit_button">ログイン</button>
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

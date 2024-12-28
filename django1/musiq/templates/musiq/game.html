@@ -1,1 +1,40 @@
 <!-- ゲーム画面 -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
+        <title>MusiQ</title>
+        <link rel="stylesheet" href="{% static 'css/game.css' %}">
+        <script type="text/javascript" src="{% static 'javascript/game.js' %}"></script>
+    </head>
+    <body>
+        <div class="container">
+            <img src="{% static 'media/secret.png' %}" id="jacket">
+            <audio id="audio" src="{% static 'musics/' %}{{ title }}.mp3"></audio>
+            <form action="{% url 'Ingame_savedata' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="isCorrect" name="isCorrect" value="">
+                <input type="hidden" id="answer_time" name="answer_time" value="">
+                <button type="button" id="playmusic">
+                    <div id="playmessage">クリックで再生</div>
+                    <span id="current-time">0:00 / 0:10</span>
+                    <progress id="progress-bar" value="0" max="100"></progress>
+                </button>
+            </form>
+            <br><br>
+            <div class="options">
+                <div class="row">
+                    <button class="option" id="option-1" data-image="{{ image }}" data-correct="{{ title }}">{{ options.1 }}</button>
+                    <button class="option" id="option-2" data-image="{{ image }}" data-correct="{{ title }}">{{ options.2 }}</button>
+                </div>
+                <div class="row">
+                    <button class="option" id="option-3" data-image="{{ image }}" data-correct="{{ title }}">{{ options.3 }}</button>
+                    <button class="option" id="option-4" data-image="{{ image }}" data-correct="{{ title }}">{{ options.4 }}</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
