@@ -18,11 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     //選択肢を押したときの処理
     document.addEventListener('click', (event) => {
         if (event.target.classList.contains('option')) {
-            //ジャケット画像の表示
             const newImageUrl = event.target.getAttribute('data-image');
             document.getElementById('jacket').src = newImageUrl;
             
-            //選択肢ボタンの状態変更
             AnswerButton.forEach(button => {
                 button.style.cursor = 'default'; 
                 button.disabled = true;
@@ -33,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            //正解・不正解の効果音再生
             const CorrectAudio = new Audio('/static/media/correct.mp3');
             const IncorrectAudio = new Audio('/static/media/incorrect.mp3');
             TimeDiff = new Date().getTime() - t1.getTime();
@@ -45,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 IncorrectAudio.play();
             }
 
-            //回答時に音楽を再再生し、次へボタンを表示
             clearInterval(fadein);
             clearInterval(fadeout);
             audio.volume = 0;
@@ -55,11 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
             currentTimeDisplay.classList.add("hidden");
             progressBar.classList.add("hidden");
 
-            // "クリックで再生"の文字を大きくする
             const playMessage = document.getElementById("playmessage");
             playMessage.classList.add("large-text");
-            message.textContent = "次の問題へ";
             playButton.setAttribute("type", "submit");
+            if (playButton.getAttribute('data-current') == "5") {
+                message.textContent = "結果を見る";
+            } else {
+                message.textContent = "次の問題へ";
+            };
             message.style.fontSize = "150%";
             fadein = setInterval(() => {
                 if (audio.volume < 1) {
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     playButton.addEventListener('click', () => {
-        if (message.textContent == '次の問題へ') {
+        if (message.textContent == '次の問題へ' || message.textContent == '結果を見る') {
             if (OnlyTapNext == true) { 
                 document.getElementById('isCorrect').value = isCorrect;
                 document.getElementById('answer_time').value = TimeDiff;

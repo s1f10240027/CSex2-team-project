@@ -26,7 +26,7 @@ def login_view(request):
             email_or_username = request.POST.get('email', '')
             password = request.POST.get('password', '')
 
-            # フォームの入力がない場合、エラーメッセージを表示
+            # フォームの入力がない場合
             if email_or_username == "" or password == "":
                 print(request, "メールアドレス/ユーザー名またはパスワードが空です。")
                 return redirect('login')
@@ -50,7 +50,7 @@ def login_view(request):
                     print(request, "ユーザー名が登録されていません。")
                     return redirect('login')
                 
-            # パスワードの確認（ハッシュ化したパスワードを比較）
+            # パスワードの確認
             if check_password(password, account.password):
                 request.session['username'] = account.username  
                 return redirect('index')
@@ -66,7 +66,6 @@ def login_view(request):
             email = request.POST["email"]
             password = request.POST["password"]
 
-            # ユーザーがすでに存在するかをチェック
             if Account.objects.filter(email=email).exists():
                 messages.error(request, "このメールアドレスは既に登録されています。")
                 return render(request, 'musiq/login.html', {'username': username, 'email': email, 'password': password, 'confirm': password, 'sign_up': True})
@@ -74,10 +73,7 @@ def login_view(request):
                 messages.error(request, "このユーザー名は既に使用されています。")
                 return render(request, 'musiq/login.html', {'username': username, 'email': email, 'password': password, 'confirm': password, 'sign_up': True})
 
-            # パスワードをハッシュ化
             hashed_password = make_password(password)
-
-            # 新規アカウントの作成
             new_user = Account.objects.create(
                 username=username,
                 email=email,
@@ -221,7 +217,8 @@ def game(request, value):
         "artist": artist_name,
         "image": album_image_url,
         "options": {i+1: option for i, option in enumerate(options)},
-        "genre": value
+        "genre": value,
+        "current": GameSession.objects.get(session_id = request.session["session_id"]).current_question
     }
     print(context)
     return render(request, 'musiq/game.html', context)
