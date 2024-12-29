@@ -20,8 +20,15 @@ musics = [
     #Title, Artist(optional)
     ["星座になれたら", "結束バンド", 1],
     ["POP IN 2", "B小町", 1],
+    ["departure!", "Masatoshi Ono", 1],
+    ["ウィーゴー！", "Hiroshi Kitadani", 1],
+    ["only my railgun", "fripSide", 1],
+    ["Realize", "Konomi Suzuki", 1],
+    ["V", "Yusuke", 1],
+    ["V.I.P", "SID", 1],
 
     ["翼の生えた希望", "ロビン", 2],
+    ["不乱不破", "HOYO-MiX", 2],
     ["Last - Moment", "onoken", 2],
     ["Pentiment", "Nothing But Requiem", 2],
     ["Arcana Eden", "Laur", 2],
@@ -30,5 +37,5 @@ musics = [
     ["幾望の月", "なきゃむりゃ", 5],
     ["オブソミート (feat. 初音ミク&重音テト)", "32ki", 5],
     ["アカリがやってきたぞっ", "GYARI(ココアシガレットP)", 5],
-    ["アスノヨゾラ哨戒班", "Orangestar", 5]
+    ["アスノヨゾラ哨戒班", "Orangestar", 5],
 ]
