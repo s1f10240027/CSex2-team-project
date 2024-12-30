@@ -7,6 +7,7 @@ from musiq.models import GameSession, Account
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.hashers import make_password, check_password
 from spotipy.oauth2 import SpotifyClientCredentials
 from .music import musics, genres
@@ -57,8 +58,6 @@ def login_view(request):
             else:
                 print(request, "パスワードが正しくありません。")
                 return redirect('login')
-
-
         else:
             print("新規登録です")
 
@@ -94,30 +93,21 @@ def index(request):
     
 def select_genre(request):
     if "session_id" in request.session:
-        print("既存のIDは", request.session["session_id"], "です")
         try:
-            previous_session = GameSession.objects.get(session_id = request.session["session_id"])
+            previous_session = GameSession.objects.get(session_id=request.session["session_id"])
             previous_session.delete()
             print("GameSession が削除されました")
-        except:
+        except ObjectDoesNotExist:
             print("該当のGameSessionは見つかりませんでした")
 
-        try:
-            del request.session["session_id"]
-            print("session_idがリクエストから削除されました")
-        except:
-            print("session_idはリクエストに存在しません")
+    for key in ["session_id", "matched_song"]:
+        if key in request.session:
+            del request.session[key]
+            print(f"{key}がリクエストから削除されました")
+        else:
+            print(f"{key}はリクエストに存在しません")
 
-        try:
-            del request.session["matched_song"]
-            print("matched_songがリクエストから削除されました")
-        except:
-            print("matched_songはリクエストに存在しません")
-
-        request.session.save() 
-        print("既存のsessionIDを削除しました")
-    else:
-        print("既存のsessionIDは存在しません")
+    request.session.save() 
     return render(request, "musiq/select_genre.html", {"genre": genres})
 
 def game(request, value):
@@ -213,7 +203,7 @@ def game(request, value):
     artist_name = track['artists'][0]['name']  
     album_image_url = track['album']['images'][0]['url']
     context = {
-        "title": track_title,
+        "title": correct_music[0],
         "artist": artist_name,
         "image": album_image_url,
         "options": {i+1: option for i, option in enumerate(options)},
@@ -318,38 +308,3 @@ def ranking(request):
 
 def rules(request):
     return render(request, "musiq/rules.html")
-
-
-def CheckSpotify(request):
-    result_data = None
-    form_data = {"title": "", "artist": ""}
-    NotFound = None
-
-    if request.method == "POST":
-        form_data["title"] = request.POST.get("title")
-        form_data["artist"] = request.POST.get("artist")
-        query = f"track:{form_data["title"]}"
-        if form_data["artist"]:
-            query += f" artist:{form_data["artist"]}"
-
-        try:
-            result = sp.search(q=query, type="track", limit=1)
-            items = result["tracks"]["items"]
-
-            if items:
-                track = items[0]
-                result_data = {
-                    "title": track["name"],
-                    "artist": track["artists"][0]["name"],
-                    "album_image": track["album"]["images"][0]["url"],
-                }
-            else:
-                NotFound = {"message": "曲が見つかりませんでした。"}
-        except:
-            NotFound = {"message": "曲が見つかりませんでした。"}
-
-    return render(
-        request,
-        "musiq/CheckSpotify.html",
-        {"result_data": result_data, "form_data": form_data, "NotFound": NotFound},
-    )
