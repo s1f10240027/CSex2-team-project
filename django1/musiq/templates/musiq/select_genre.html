@@ -6,18 +6,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
         <title>ジャンル選択</title>
-        <link rel="stylesheet" href="{% static 'css/genre_selection.css' %}">
+        <link rel="stylesheet" href="{% static 'css/select_genre.css' %}">
     </head>
     <body>
         <div class="container">
-            <h2>ジャンルを選んでね</h2>
-            <div class="button-container">
-                {% for index, value in genre.items %}
-                    <button class="genre-button" onclick="location.href='{% url 'game' value %}'">
-                        {{ value }}
-                    </button>
-                {% endfor %}
+            <div class="genre-container">
+                <h2>ジャンルを選択</h2>
+                <div class="button-container">
+                    {% for index, value in genre.items %}
+                        <button class="genre-button" onclick="location.href='{% url 'game' value %}'">
+                            {{ value }}
+                        </button>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </body>
+    </body>    
 </html>
