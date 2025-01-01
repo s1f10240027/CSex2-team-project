@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
+    <script type="text/javascript" src="{% static 'javascript/result.js' %}"></script>
+    <title>ゲーム結果</title>
+</head>
+<body>
+    <div class="side-curtain left-curtain"></div>
+    <div class="container">
+        <div class="result">
+            <h3>あなたのスコアは...</h3>
+            <p class="score-value">{{ score }}</p>
+        </div>
+        <div class="ranking">
+            <h3>ランキング</h3>
+            <div class="ranking-content">
+                <ul>
+                    <li>
+                        <span class="rank">199.</span>
+                        <img src="{% static 'media/login_face.png' %}" alt="User 1" class="icon">
+                        <span class="name">ユーザー1</span>
+                        <span class="name_score_boader"></span>
+                        <span class="score">100.0</span>
+                    </li>
+                    <li class="current-user">
+                        <span class="rank">200.</span>
+                        {% if LoginState %}
+                            <img src="{% static 'media/login_face.png' %}" alt="Current User" class="icon">
+                            <span class="name">{{ username }}</span>
+                        {% else %}
+                            <img src="{% static 'media/NoLogin.png' %}" alt="Current User" class="icon">
+                            <span class="name">あなた</span>
+                            <form action="{% url 'login' %}" method="post" id="form">
+                                {% csrf_token %}
+                                <input type="hidden" name="from_Result" value="True">
+                                <button class="login">ログインをして<br>スコアを記録しよう！</button>
+                            </form>
+                        {% endif %}                            
+                        <span class="name_score_boader"></span>
+                        <span class="score">{{ score }}</span>
+                    </li>
+                    <li>
+                        <span class="rank">201.</span>
+                        <img src="{% static 'media/login_face.png' %}" alt="User 2" class="icon">
+                        <span class="name">ユーザー2</span>
+                        <span class="name_score_boader"></span>
+                        <span class="score">93.22</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn back" onclick="location.href='{% url 'index' %}'">TOPへ戻る</button>
+            <button class="btn retry" onclick="location.href='{% url 'retry' %}'">リトライ</button>
+        </div>
+    </div>
+    <div class="side-curtain right-curtain"></div>
+</body>
+</html>

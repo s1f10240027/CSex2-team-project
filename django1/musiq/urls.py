@@ -11,5 +11,9 @@ urlpatterns = [
     path("GameInfo", views.rules, name="rules"),
     path('Ingame_savedata', views.Ingame_savedata, name='Ingame_savedata'),
     path('login', views.login_view, name="login"),
+    path("Mypage", views.mypage, name="mypage"),
+    path("Mypage/rename", views.rename, name="rename"),
+    path("result", views.result, name="result"),
+    path("retry", views.retry, name="retry"),
     path("spotify", views.CheckSpotify, name="CheckSpotify"),
 ]
