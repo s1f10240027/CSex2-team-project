@@ -11,10 +11,13 @@ class GameSession(models.Model):
     genre = models.CharField(max_length=100, default="All")     # ジャンル
 
 class Account(models.Model):
-    username = models.CharField(max_length=20) 
+    username = models.CharField(max_length=10) 
     email = models.EmailField() 
     password = models.CharField(max_length=255)
-    last_login = models.DateTimeField(default=timezone.now)  # `last_login` を追加
+    recent_score = models.FloatField(default=0)
+    correct_musics = models.JSONField(default=list) 
+    first_login = models.DateTimeField(default=timezone.now) 
+    last_login = models.DateTimeField(default=timezone.now) 
 
     def update_last_login(self):
         self.last_login = timezone.now()

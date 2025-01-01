@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>マイページ</title>
+        <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+        <script type="text/javascript" src="{% static 'javascript/mypage.js' %}"></script>
+    </head>
+    <body>
+        <div class="topButton_container">
+            <a href="{% url 'index' %}" class="topButton">
+                <img src="{% static 'media/home.png' %}" alt="Home Icon">TOPへ
+            </a>
+        </div>
+        <div class="container">
+            <h1>マイページ</h1>
+            <div class="profile">
+                <img src="{% static 'media/login_face.png' %}" alt="icon" class="icon" onclick="changeIcon()">          
+                <div class="score-info">
+                    <p class="score-value">100.0</p>
+                    <p class="ranking">ランキング: <span>1 位</span></p>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="info-row">
+                    <span>ユーザー名</span>
+                    <span>{{ user.username }}</span>
+                    <button class="edit-button" onclick="location.href='{% url 'rename' %}'">
+                        <img class="edit-icon" src="{% static 'media/edit_icon.png' %}">
+                    </button>
+                </div>
+                <div class="info-row">
+                    <span>正答楽曲数</span>
+                    <span>{{ corrects }} / {{ max_musics }}</span>
+                </div>
+                <div class="info-row">
+                    <span>直近のスコア</span>
+                    <span>{{ score }}</span>
+                </div>
+                <div class="info-row">
+                    <span>アカウント作成日</span>
+                    <span>{{ user.first_login|date:"Y年m月d日" }}</span>
+                </div>
+            </div>
+            <form action="{% url 'mypage' %}" method="post">
+                {% csrf_token %}
+                <button class="logout">ログアウト</button>
+            </form>
+        </div>
+    </body>
+</html>

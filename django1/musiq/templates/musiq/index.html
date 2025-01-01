@@ -26,7 +26,7 @@
                 </a>
                 <div class="login_container">
                     {% if user %}
-                        <div class="login" onclick="location.href='{% url 'login' %}'">
+                        <div class="login" onclick="location.href='{% url 'mypage' %}'">
                             <img src="{% static 'media/login_face.png' %}" alt="ログイン中アイコン" class="login_icon">
                             <div class="login_text">
                                 <span class="login_name">{{ user.username }}</span>
