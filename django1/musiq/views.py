@@ -3,6 +3,7 @@
 import re
 import random
 import spotipy
+from django.utils import timezone
 from musiq.models import GameSession, Account
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -19,8 +20,12 @@ auth_manager = SpotifyClientCredentials(client_id=client_id, client_secret=clien
 sp = spotipy.Spotify(auth_manager=auth_manager)
 #================
 
+#ログイン画面
 def login_view(request):
     if request.method == 'POST':
+        if request.POST.get("from_Result", False):
+            request.session["return_Result"] = True
+            return render(request, "musiq/login.html", {"ReturnResult": True})
         if request.POST["name"] == "":
             print("ログインです")
             account = ""
@@ -53,7 +58,10 @@ def login_view(request):
                 
             # パスワードの確認
             if check_password(password, account.password):
-                request.session['username'] = account.username  
+                request.session['username'] = account.username
+                request.session.save()
+                if request.session.get("return_Result", False):
+                    return redirect(result)    
                 return redirect('index')
             else:
                 print(request, "パスワードが正しくありません。")
@@ -73,25 +81,30 @@ def login_view(request):
                 return render(request, 'musiq/login.html', {'username': username, 'email': email, 'password': password, 'confirm': password, 'sign_up': True})
 
             hashed_password = make_password(password)
-            new_user = Account.objects.create(
+            Account.objects.create(
                 username=username,
                 email=email,
                 password=hashed_password,
             )
             messages.success(request, "新規登録が完了しました！")
-            login(request, new_user)
+            request.session['username'] = username
+            request.session.save()
+            if request.session.get("return_Result", False):
+                return redirect(result)    
             return redirect('index') 
     else:
         return render(request, "musiq/login.html")
 
+#TOPページ
 def index(request):
     name = request.session.get('username', None)
     if name:
         user = Account.objects.get(username=name)
         return render(request, 'musiq/index.html', {'user': user})
     return render(request, "musiq/index.html", {'user': None})
-    
-def select_genre(request):
+
+#セッションデータを消去するための関数
+def deleteSession(request):
     if "session_id" in request.session:
         try:
             previous_session = GameSession.objects.get(session_id=request.session["session_id"])
@@ -99,17 +112,27 @@ def select_genre(request):
             print("GameSession が削除されました")
         except ObjectDoesNotExist:
             print("該当のGameSessionは見つかりませんでした")
-
-    for key in ["session_id", "matched_song"]:
+    for key in ["session_id", "matched_song", "score", "correct_music", "return_Result"]:
         if key in request.session:
             del request.session[key]
             print(f"{key}がリクエストから削除されました")
         else:
             print(f"{key}はリクエストに存在しません")
-
     request.session.save() 
+
+#ジャンル選択画面
+def select_genre(request):
+    deleteSession(request)
     return render(request, "musiq/select_genre.html", {"genre": genres})
 
+#リトライボタン入力時
+def retry(request):
+    id = request.session.get("session_id")
+    value = GameSession.objects.get(session_id=id).genre
+    deleteSession(request)
+    return redirect(game, value)
+
+#ゲーム画面
 def game(request, value):
     if ("session_id" not in request.session) or (request.session["session_id"] == None):
         session_id = random.randint(1000,9999)
@@ -136,6 +159,7 @@ def game(request, value):
 
         request.session["session_id"] = session_id
         request.session["matched_song"] = matched_song
+        request.session["correct_music"] = []
         request.session.save()
 
         GameSession.objects.create(
@@ -170,11 +194,8 @@ def game(request, value):
 
     options = [None] * 4
     correct_music = random.choice(request.session["matched_song"])
-    print("")
-    print(genre_songs_list)
-    print("")
+    print("正解曲:")
     print(correct_music)
-    print("")
     
     index_list = [0,1,2,3]
     option_number = random.choice(index_list)
@@ -184,6 +205,7 @@ def game(request, value):
     genre_songs_list.remove(correct_music)
 
     request.session["matched_song"].remove(correct_music)
+    request.session["correct_music"].append(correct_music[0])
     request.session.save()
 
     while len(index_list) != 0:
@@ -193,13 +215,11 @@ def game(request, value):
         index_list.remove(option_number)
         genre_songs_list.remove(incorrect_music)
 
-    # 曲名とアーティスト名(任意)でデータ取得
     query = f"track:{correct_music[0]}"
     if correct_music[1]:
         query += f" artist:{correct_music[1]}"
     result = sp.search(q=query, type="track", limit=1)
     track = result['tracks']['items'][0]
-    track_title = track['name']
     artist_name = track['artists'][0]['name']  
     album_image_url = track['album']['images'][0]['url']
     context = {
@@ -213,6 +233,7 @@ def game(request, value):
     print(context)
     return render(request, 'musiq/game.html', context)
 
+#スコア計算関数
 def CalcScore(correct,consecutive,avetime):
     if correct == 0:
         return 0
@@ -232,14 +253,37 @@ def CalcScore(correct,consecutive,avetime):
     else:
         score += (12 - (avetime/1000))
 
-    return score
+    return round(score, 2)
 
+#リザルト画面
+def result(request):
+    name = request.session.get('username', None)
+    score = request.session.get("score")
+    LoginState = ""
+    if name == None:
+        LoginState = False
+    else:
+        LoginState = True
+        AccountData = Account.objects.get(username = name)
+        AccountData.recent_score = score
+        corrects = request.session.get("correct_music", [])
+        if corrects:
+            for i in corrects:
+                if i not in AccountData.correct_musics:
+                    AccountData.correct_musics.append(i)
+        AccountData.save()
+    context = {
+        'LoginState': LoginState,
+        'username': name,
+        'score': score,
+    }
+    return render(request, "musiq/result.html", context)
 
+#問題ごとのデータセーブ
 def Ingame_savedata(request):
     if request.method == "POST":
         isCorrect = int(request.POST.get("isCorrect"))
         answer_time = int(request.POST.get("answer_time"))
-        print(request.POST)
 
         id = request.session.get("session_id")
         gamedata = GameSession.objects.get(session_id = id)
@@ -252,17 +296,19 @@ def Ingame_savedata(request):
                 gamedata.max_streak = gamedata.streak
         else:
             gamedata.streak = 0
-        
+            del request.session["correct_music"][-1]
+            request.session.save()
+            
         if gamedata.current_question == 5:
-            print(f"id: {gamedata.session_id}, \ncorrect: {gamedata.correct}, \ntime: {gamedata.answer_times}, \nstreak: {gamedata.streak}, \nmax: {gamedata.max_streak}")
+            #終了時の処理
             Score = CalcScore(
                 gamedata.correct, 
                 gamedata.max_streak, 
                 sum(gamedata.answer_times) / len(gamedata.answer_times)
             )
-            print(f"あなたのスコアは... {Score} でしたー！！！")
-            gamedata.delete()
-            return redirect(index)
+            print(f"Score: {Score}")
+            request.session["score"] = Score
+            return redirect(result)
         else:
             gamedata.current_question += 1
 
@@ -271,6 +317,7 @@ def Ingame_savedata(request):
     else:
         return redirect(index)
 
+#Spotify曲確認画面
 def CheckSpotify(request):
     result_data = None
     form_data = {"title": "", "artist": ""}
@@ -301,10 +348,41 @@ def CheckSpotify(request):
 
     return render(request, "musiq/CheckSpotify.html", {"result_data": result_data, "form_data": form_data, "NotFound": NotFound})   
 
-
+#ランキング画面
 def ranking(request):
     return render(request, "musiq/ranking.html")
 
-
+#ルール画面
 def rules(request):
     return render(request, "musiq/rules.html")
+
+#マイページ画面
+def mypage(request):
+    if request.method == 'POST':
+        try:
+            del request.session['username']
+        except:
+            print("エラー")
+        return redirect('index')
+    name = request.session.get('username', None)
+    userdata = Account.objects.get(username=name)
+    context = {
+        'user': userdata, 
+        'score': userdata.recent_score,
+        'corrects': len(userdata.correct_musics),
+        'max_musics': len(musics),
+    }
+    return render(request, "musiq/mypage.html", context)
+
+#マイページの名前変更画面
+def rename(request):
+    name = request.session.get('username', None)
+    userdata = Account.objects.get(username=name)
+    if request.method == 'POST':
+        userdata.username = request.POST["name"]
+        request.session['username'] = request.POST["name"]
+        userdata.save()
+        return redirect(mypage)
+
+    return render(request, "musiq/mypage_rename.html", {'user': userdata})
+

@@ -12,9 +12,15 @@
     <body>
         <div class="container">
             <div class="topButton_container">
-                <a href="{% url 'index' %}" class="topButton">
-                    <img src="{% static 'media/home.png' %}" alt="Home Icon">TOP
-                </a>
+                {% if ReturnResult %}
+                    <a href="{% url 'result' %}" class="topButton">
+                        <img src="{% static 'media/back.png' %}" alt="Bacl Icon">戻る
+                    </a>
+                {% else %}
+                    <a href="{% url 'index' %}" class="topButton">
+                        <img src="{% static 'media/home.png' %}" alt="Home Icon">TOP
+                    </a>
+                {% endif %}
             </div>
             <div class="main_box">
                 <form action="{% url 'login' %}" method="post" id="form" data-signup="{{ sign_up|yesno:'True,False' }}">    
@@ -43,6 +49,9 @@
                     <div class="button_container">
                         <button class="submit_button">ログイン</button>
                     </div> 
+                    {% if ReturnResult %}
+                        <input type="hidden" name="return_Result" value="True">                   
+                    {% endif %}
                 </form>
             </div>
         </div>
