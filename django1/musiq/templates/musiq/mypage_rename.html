@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>マイページ</title>
+        <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+        <script type="text/javascript" src="{% static 'javascript/mypage.js' %}"></script>
+    </head>
+    <body>
+        <div class="topButton_container">
+            <a href="{% url 'mypage' %}" class="topButton">
+                <img src="{% static 'media/back.png' %}" alt="Home Icon">戻る
+            </a>
+        </div>
+        <div class="container">
+            <h1>名前を変更する</h1>
+            <form action="{% url 'rename' %}" method="post">
+                {% csrf_token %}
+                <div class="input_container">
+                    <input type="text" class="form_input" placeholder="{{ user.username }}" name="name" value=""> 
+                    <div id="name_error" class="error_messages"></div>
+                </div>
+                <button class="change">変更</button>
+            </form>
+        </div>
+    </body>
+</html>
