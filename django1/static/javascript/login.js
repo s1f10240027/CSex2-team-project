@@ -1,9 +1,9 @@
+let TabCoolDown = false;
+let CurrentTab = 'sign_in';
+
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('last_page', window.location.pathname);    
 });
-
-let TabCoolDown = false;
-let CurrentTab = 'sign_in';
 
 document.addEventListener('DOMContentLoaded', () => {
     const button = document.querySelector('.submit_button');

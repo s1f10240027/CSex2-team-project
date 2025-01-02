@@ -3,10 +3,8 @@ window.addEventListener('beforeunload', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log(localStorage)
     if (window.location.pathname == localStorage.getItem('last_page')){
         localStorage.clear('musicPlaying'); 
-        console.log("yo")
     }
 
     const isPlaying = localStorage.getItem('musicPlaying');
