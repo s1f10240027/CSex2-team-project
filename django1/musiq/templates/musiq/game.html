@@ -13,6 +13,11 @@
     </head>
     <body>
         <div class="side-curtain left-curtain"></div>
+        <div class="topButton_container">
+            <a href="{% url 'index' %}" class="topButton">
+                <img src="{% static 'media/home.png' %}" alt="Home Icon">TOPへ
+            </a>
+        </div>
         <div class="container">
             <img src="{% static 'media/secret.png' %}" id="jacket">
             <audio id="audio" src="{% static 'musics/' %}{{ title }}.mp3"></audio>

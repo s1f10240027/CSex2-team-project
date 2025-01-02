@@ -12,6 +12,12 @@
     </head>
     <body>
         <div class="side-curtain left-curtain"></div>
+        <div class="side-curtain right-curtain"></div>
+        <div class="topButton_container">
+            <a href="{% url 'index' %}" class="topButton">
+                <img src="{% static 'media/home.png' %}" alt="Home Icon">TOPへ
+            </a>
+        </div>
         <div class="container">
             <div class="genre-container">
                 <h2>ジャンルを選択</h2>
@@ -24,6 +30,5 @@
                 </div>
             </div>
         </div>
-        <div class="side-curtain right-curtain"></div>
     </body>    
 </html>
