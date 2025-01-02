@@ -107,6 +107,7 @@ def index(request):
         user = Account.objects.get(username=name)
         userIcon = getUserIcon(user)
         return render(request, 'musiq/index.html', {'user': user, 'userIcon': userIcon})
+    deleteSession(request)
     return render(request, "musiq/index.html", {'user': None})
 
 #セッションデータを消去するための関数
