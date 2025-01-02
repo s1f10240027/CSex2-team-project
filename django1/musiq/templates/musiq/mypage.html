@@ -24,7 +24,9 @@
                     {% csrf_token %}
                     <input type="hidden" name="form_type" value="changeIcon">
                     <input type="file" name="userIcon" class="imageInput" accept="image/*" onchange="changeIcon(event)">
-                    <img src="{{ userIcon }}" alt="icon" class="icon" onclick="ClickFileInput()">
+                    <span class="icon_container">
+                        <img src="{{ userIcon }}" alt="icon" class="icon" onclick="ClickFileInput()">
+                    </span>
                 </form>
                 <div class="score-info">
                     <p class="score-value">{{ user.best_score }}</p>
