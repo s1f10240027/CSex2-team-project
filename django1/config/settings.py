@@ -70,6 +70,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+MEDIA_ROOT = BASE_DIR / "uploads"
+MEDIA_URL = "/uploads/"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
