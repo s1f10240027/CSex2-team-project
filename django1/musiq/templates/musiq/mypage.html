@@ -6,16 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>マイページ</title>
         <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+        <link rel="stylesheet" href="{% static 'css/curtain.css' %}">
         <script type="text/javascript" src="{% static 'javascript/mypage.js' %}"></script>
     </head>
     <body>
+        <div class="side-curtain left-curtain"></div>
+        <div class="side-curtain right-curtain"></div>
         <div class="topButton_container">
             <a href="{% url 'index' %}" class="topButton">
                 <img src="{% static 'media/home.png' %}" alt="Home Icon">TOPへ
             </a>
         </div>
         <div class="container">
-            <h1>マイページ</h1>
+            <h1>プロフィール</h1>
             <div class="profile">
                 <form action="{% url 'mypage' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
