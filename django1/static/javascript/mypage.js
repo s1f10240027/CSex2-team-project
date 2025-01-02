@@ -1,5 +1,5 @@
+// 音楽再生処理
 const audio = new Audio("/static/media/mypage.mp3");
-
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('last_page', window.location.pathname);
     if (!(audio.paused)) {
@@ -7,7 +7,6 @@ window.addEventListener('beforeunload', () => {
     };
 })
 
-//2ページ共通 bgmの再生
 document.addEventListener('DOMContentLoaded', () => {
     const isOnMypage = `${localStorage.getItem('last_page')}`.includes("Mypage");
     const savedTime = parseFloat(localStorage.getItem('mypage_currentTime'));
@@ -27,11 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-function changeIcon() {
-    // アイコン変更処理も今後追加予定
-    console.log(audio)
-    audio.currentTime = 10;
-    alert("アイコン変更機能が未実装です。");
+
+// アイコン変更処理
+function ClickFileInput() {
+    document.querySelector(".imageInput").click();
+}
+
+function changeIcon(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const form = event.target.closest('form');
+        form.submit();
+    }
 }
 
 // renameの制限処理

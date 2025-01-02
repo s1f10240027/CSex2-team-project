@@ -17,9 +17,14 @@
         <div class="container">
             <h1>マイページ</h1>
             <div class="profile">
-                <img src="{% static 'media/login_face.png' %}" alt="icon" class="icon" onclick="changeIcon()">          
+                <form action="{% url 'mypage' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="changeIcon">
+                    <input type="file" name="userIcon" class="imageInput" accept="image/*" onchange="changeIcon(event)">
+                    <img src="{{ userIcon }}" alt="icon" class="icon" onclick="ClickFileInput()">
+                </form>
                 <div class="score-info">
-                    <p class="score-value">100.0</p>
+                    <p class="score-value">{{ user.best_score }}</p>
                     <p class="ranking">ランキング: <span>1 位</span></p>
                 </div>
             </div>
@@ -37,7 +42,7 @@
                 </div>
                 <div class="info-row">
                     <span>直近のスコア</span>
-                    <span>{{ score }}</span>
+                    <span>{{ user.recent_score }}</span>
                 </div>
                 <div class="info-row">
                     <span>アカウント作成日</span>
@@ -46,6 +51,7 @@
             </div>
             <form action="{% url 'mypage' %}" method="post">
                 {% csrf_token %}
+                <input type="hidden" name="form_type" value="logout">
                 <button class="logout">ログアウト</button>
             </form>
         </div>

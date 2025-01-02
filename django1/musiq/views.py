@@ -3,11 +3,10 @@
 import re
 import random
 import spotipy
-from django.utils import timezone
+from django.conf import settings
 from musiq.models import GameSession, Account
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.hashers import make_password, check_password
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -32,14 +31,12 @@ def login_view(request):
             email_or_username = request.POST.get('email', '')
             password = request.POST.get('password', '')
 
-            # フォームの入力がない場合
             if email_or_username == "" or password == "":
                 print(request, "メールアドレス/ユーザー名またはパスワードが空です。")
                 return redirect('login')
 
             regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
             if re.match(regex, email_or_username):
-                # メールアドレスの場合
                 try:
                     account = Account.objects.get(email=email_or_username)
                     username = account.username
@@ -48,7 +45,6 @@ def login_view(request):
                     return redirect('login')
                 
             else:
-                # ユーザー名の場合
                 try:
                     account = Account.objects.get(username=email_or_username)
                     username = account.username
@@ -56,7 +52,6 @@ def login_view(request):
                     print(request, "ユーザー名が登録されていません。")
                     return redirect('login')
                 
-            # パスワードの確認
             if check_password(password, account.password):
                 request.session['username'] = account.username
                 request.session.save()
@@ -95,12 +90,23 @@ def login_view(request):
     else:
         return render(request, "musiq/login.html")
 
+
+#ユーザーアイコンを取得する関数
+def getUserIcon(userData):
+    icon = ""
+    if userData.userIcon:
+        icon = userData.userIcon.url
+    else:
+        icon = settings.STATIC_URL + 'media/default_icon.png'
+    return icon
+
 #TOPページ
 def index(request):
     name = request.session.get('username', None)
     if name:
         user = Account.objects.get(username=name)
-        return render(request, 'musiq/index.html', {'user': user})
+        userIcon = getUserIcon(user)
+        return render(request, 'musiq/index.html', {'user': user, 'userIcon': userIcon})
     return render(request, "musiq/index.html", {'user': None})
 
 #セッションデータを消去するための関数
@@ -259,13 +265,17 @@ def CalcScore(correct,consecutive,avetime):
 def result(request):
     name = request.session.get('username', None)
     score = request.session.get("score")
+    user_icon = ""
     LoginState = ""
     if name == None:
         LoginState = False
     else:
         LoginState = True
         AccountData = Account.objects.get(username = name)
+        user_icon = getUserIcon(AccountData)
         AccountData.recent_score = score
+        if AccountData.best_score < score:
+            AccountData.best_score = score
         corrects = request.session.get("correct_music", [])
         if corrects:
             for i in corrects:
@@ -276,6 +286,7 @@ def result(request):
         'LoginState': LoginState,
         'username': name,
         'score': score,
+        'user_icon': user_icon,
     }
     return render(request, "musiq/result.html", context)
 
@@ -358,17 +369,29 @@ def rules(request):
 
 #マイページ画面
 def mypage(request):
-    if request.method == 'POST':
-        try:
-            del request.session['username']
-        except:
-            print("エラー")
-        return redirect('index')
     name = request.session.get('username', None)
     userdata = Account.objects.get(username=name)
+
+    if request.method == 'POST':
+        form_type = request.POST.get('form_type')
+        if form_type == "logout":
+            try:
+                del request.session['username']
+            except:
+                print("既にログアウトされています")
+            return redirect(index)
+        elif form_type == "changeIcon":
+            user_icon = request.FILES.get('userIcon')
+            print(user_icon)
+            if user_icon:
+                userdata.userIcon = user_icon  
+                userdata.save() 
+            return redirect(mypage)
+        
+    userIcon = getUserIcon(userdata)
     context = {
         'user': userdata, 
-        'score': userdata.recent_score,
+        'userIcon': userIcon,
         'corrects': len(userdata.correct_musics),
         'max_musics': len(musics),
     }

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/result.css' %}">
+    <link rel="stylesheet" href="{% static 'css/curtain.css' %}">
     <script type="text/javascript" src="{% static 'javascript/result.js' %}"></script>
     <title>ゲーム結果</title>
 </head>
@@ -21,7 +22,7 @@
                 <ul>
                     <li>
                         <span class="rank">199.</span>
-                        <img src="{% static 'media/login_face.png' %}" alt="User 1" class="icon">
+                        <img src="{% static 'media/default_icon.png' %}" alt="User 1" class="icon">
                         <span class="name">ユーザー1</span>
                         <span class="name_score_boader"></span>
                         <span class="score">100.0</span>
@@ -29,7 +30,7 @@
                     <li class="current-user">
                         <span class="rank">200.</span>
                         {% if LoginState %}
-                            <img src="{% static 'media/login_face.png' %}" alt="Current User" class="icon">
+                            <img src="{{ user_icon }}" alt="Current User" class="icon">
                             <span class="name">{{ username }}</span>
                         {% else %}
                             <img src="{% static 'media/NoLogin.png' %}" alt="Current User" class="icon">
@@ -45,7 +46,7 @@
                     </li>
                     <li>
                         <span class="rank">201.</span>
-                        <img src="{% static 'media/login_face.png' %}" alt="User 2" class="icon">
+                        <img src="{% static 'media/default_icon.png' %}" alt="User 2" class="icon">
                         <span class="name">ユーザー2</span>
                         <span class="name_score_boader"></span>
                         <span class="score">93.22</span>
