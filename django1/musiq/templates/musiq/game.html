@@ -8,9 +8,11 @@
         <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
         <title>MusiQ</title>
         <link rel="stylesheet" href="{% static 'css/game.css' %}">
+        <link rel="stylesheet" href="{% static 'css/curtain.css' %}">
         <script type="text/javascript" src="{% static 'javascript/game.js' %}"></script>
     </head>
     <body>
+        <div class="side-curtain left-curtain"></div>
         <div class="container">
             <img src="{% static 'media/secret.png' %}" id="jacket">
             <audio id="audio" src="{% static 'musics/' %}{{ title }}.mp3"></audio>
@@ -36,5 +38,6 @@
                 </div>
             </div>
         </div>
+        <div class="side-curtain right-curtain"></div>
     </body>
 </html>

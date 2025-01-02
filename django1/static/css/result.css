@@ -1,32 +1,8 @@
-* {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-
 body {
     background-color: #fffacd; 
     margin: 0;
     font-family: Arial, sans-serif;
 }
-
-/* カーテン 別ページにも応用予定 */
-.side-curtain {
-    position: fixed;
-    top: 0;
-    width: 20%;
-    height: 100%;
-    z-index: 1; 
-}
-.left-curtain {
-    left: 0;
-    background-color: rgb(216, 216, 216); 
-}
-.right-curtain {
-    right: 0;
-    background-color: rgb(216, 216, 216); 
-}
-
 
 .container {
     max-width: 950px;

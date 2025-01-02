@@ -192,3 +192,11 @@ h1 {
     background-color: #CCCCCC; 
     
 }
+
+.imageInput {
+    display: none;
+}
+
+.imagePost {
+    display: none;
+}

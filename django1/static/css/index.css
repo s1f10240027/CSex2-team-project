@@ -180,15 +180,15 @@ body {
 }
 
 .login:hover {
-    background-color: #ccc; /* ホバー時の背景色 */
+    background-color: #cccccc; 
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .login_icon {
-    width: 30px; /* アイコンサイズ */
+    width: 30px; 
     height: 30px;
-    margin-right: 10px; /* テキストとの間隔 */
-    opacity: 30%;
+    margin-right: 10px; 
+    border-radius: 50%;
 }
 
 .login_text {

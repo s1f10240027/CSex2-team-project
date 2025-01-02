@@ -7,9 +7,11 @@
         <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
         <title>ジャンル選択</title>
         <link rel="stylesheet" href="{% static 'css/select_genre.css' %}">
+        <link rel="stylesheet" href="{% static 'css/curtain.css' %}">
         <script type="text/javascript" src="{% static 'javascript/select_genre.js' %}"></script>
     </head>
     <body>
+        <div class="side-curtain left-curtain"></div>
         <div class="container">
             <div class="genre-container">
                 <h2>ジャンルを選択</h2>
@@ -22,5 +24,6 @@
                 </div>
             </div>
         </div>
+        <div class="side-curtain right-curtain"></div>
     </body>    
 </html>

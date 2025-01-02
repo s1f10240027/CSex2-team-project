@@ -1,0 +1,20 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.side-curtain {
+    background-color: rgb(229, 226, 226); 
+    position: fixed;
+    top: 0;
+    width: 15%;
+    height: 100%;
+    z-index: 1; 
+}
+.left-curtain {
+    left: 0;
+}
+.right-curtain {
+    right: 0;
+}
