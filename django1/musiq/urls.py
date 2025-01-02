@@ -15,5 +15,6 @@ urlpatterns = [
     path("Mypage/rename", views.rename, name="rename"),
     path("result", views.result, name="result"),
     path("retry", views.retry, name="retry"),
+    path("Info", views.rules, name="rules"),
     path("spotify", views.CheckSpotify, name="CheckSpotify"),
 ]

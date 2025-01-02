@@ -150,14 +150,17 @@ body {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 .buttons {
-    background-color: #FFE20B;
+    cursor: pointer;
+    background-color: #ff8c00;
     color: white;
 }
-
+.buttons:hover {
+    background-color: #e67600;
+    color: rgb(234, 234, 234);
+}
 
 .login_container {
     position: absolute;
@@ -216,4 +219,5 @@ body {
     height: 100%;
     z-index: 0;
     opacity: 0.3; 
+    pointer-events: none;
 }
