@@ -7,9 +7,12 @@
         <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
         <title>login</title>
         <link rel="stylesheet" href="{% static 'css/login.css' %}">
+        <link rel="stylesheet" href="{% static 'css/curtain.css' %}">
         <script type="text/javascript" src="{% static 'javascript/login.js' %}"></script>
     </head>
     <body>
+        <div class="side-curtain left-curtain"></div>
+        <div class="side-curtain right-curtain"></div>
         <div class="container">
             <div class="topButton_container">
                 {% if ReturnResult %}
