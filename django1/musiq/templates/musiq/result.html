@@ -15,26 +15,28 @@
     <div class="container">
         <div class="result">
             <h3>あなたのスコアは...</h3>
-            <p class="score-value">{{ score }}</p>
+            <p class="score-value">{{ user.score }}</p>
         </div>
         <div class="ranking">
-            <h3>ランキング</h3>
+            <h3>このスコアでのランキング</h3>
             <div class="ranking-content">
                 <ul>
-                    <li>
-                        <span class="rank">199.</span>
-                        <img src="{% static 'media/default_icon.png' %}" alt="User 1" class="icon">
-                        <span class="name">ユーザー1</span>
-                        <span class="name_score_boader"></span>
-                        <span class="score">100.0</span>
-                    </li>
+                    {% if high_user.username %}
+                        <li>
+                            <span class="rank">{{ high_user.rank }}</span>
+                            <img src="{{ high_user.userIcon }}" alt="User 1" class="icon">
+                            <span class="name">{{ high_user.username }}</span>
+                            <span class="name_score_boader"></span>
+                            <span class="score">{{ high_user.score }}</span>
+                        </li>
+                    {% endif %}
                     <li class="current-user">
-                        <span class="rank">200.</span>
-                        {% if LoginState %}
-                            <img src="{{ user_icon }}" alt="Current User" class="icon">
-                            <span class="name">{{ username }}</span>
+                        <span class="rank">{{ user.rank }}</span>
+                        {% if user.username %}
+                            <img src="{{ user.userIcon }}" alt="Current User" class="icon">
+                            <span class="name">{{ user.username }}</span>
                         {% else %}
-                            <img src="{% static 'media/NoLogin.png' %}" alt="Current User" class="icon">
+                            <img src="{{ user.userIcon }}" alt="Current User" class="icon">
                             <span class="name">あなた</span>
                             <form action="{% url 'login' %}" method="post" id="form">
                                 {% csrf_token %}
@@ -43,15 +45,17 @@
                             </form>
                         {% endif %}                            
                         <span class="name_score_boader"></span>
-                        <span class="score">{{ score }}</span>
+                        <span class="score">{{ user.score }}</span>
                     </li>
-                    <li>
-                        <span class="rank">201.</span>
-                        <img src="{% static 'media/default_icon.png' %}" alt="User 2" class="icon">
-                        <span class="name">ユーザー2</span>
-                        <span class="name_score_boader"></span>
-                        <span class="score">93.22</span>
-                    </li>
+                    {% if low_user.username %}
+                        <li>
+                            <span class="rank">{{ low_user.rank }}</span>
+                            <img src="{{ low_user.userIcon }}" alt="User 2" class="icon">
+                            <span class="name">{{ low_user.username }}</span>
+                            <span class="name_score_boader"></span>
+                            <span class="score">{{ low_user.score }}</span>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

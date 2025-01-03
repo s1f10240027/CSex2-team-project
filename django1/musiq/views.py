@@ -267,12 +267,8 @@ def CalcScore(correct,consecutive,avetime):
 def result(request):
     name = request.session.get('username', None)
     score = request.session.get("score")
-    user_icon = ""
-    LoginState = ""
-    if name == None:
-        LoginState = False
-    else:
-        LoginState = True
+    user_icon = settings.STATIC_URL + 'media/nologin.png'
+    if name:
         AccountData = Account.objects.get(username = name)
         user_icon = getUserIcon(AccountData)
         AccountData.recent_score = score
@@ -284,11 +280,32 @@ def result(request):
                 if i not in AccountData.correct_musics:
                     AccountData.correct_musics.append(i)
         AccountData.save()
+    
+    user = {'username': name, 'userIcon': user_icon, 'score': score, 'rank': None}
+    high_user = {'username': None, 'userIcon': None, 'score': None, 'rank': None}
+    low_user  = {'username': None, 'userIcon': None, 'score': None, 'rank': None}
+    sort_by_score = Account.objects.all().order_by('-best_score')
+    i = 0
+    for n in range(len(sort_by_score)):
+        i = n
+        if sort_by_score[i].best_score <= score:
+            break
+    user['rank'] = i + 1
+    if i != 0:
+        high_user['username'] = sort_by_score[i-1].username
+        high_user['userIcon'] = getUserIcon(sort_by_score[i-1])
+        high_user['score'] = sort_by_score[i-1].best_score
+        high_user['rank'] = i
+    if i != (len(sort_by_score) -1):
+        low_user['username'] = sort_by_score[i+1].username
+        low_user['userIcon'] = getUserIcon(sort_by_score[i+1])
+        low_user['score'] = sort_by_score[i+1].best_score
+        low_user['rank'] = i + 2
+
     context = {
-        'LoginState': LoginState,
-        'username': name,
-        'score': score,
-        'user_icon': user_icon,
+        'user': user,
+        'high_user': high_user,
+        'low_user': low_user,
     }
     return render(request, "musiq/result.html", context)
 
