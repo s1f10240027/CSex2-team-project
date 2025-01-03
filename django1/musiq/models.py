@@ -16,7 +16,7 @@ class OverwriteStorage(FileSystemStorage):
             os.remove(self.path(name)) 
         return name
 
-
+# 1ゲームの管理
 class GameSession(models.Model):
     session_id = models.IntegerField(unique=True)               # 乱数(リザルトで非ログインの人も登録可にするために)
     current_question = models.IntegerField(default=0)           # 終了問題数
@@ -26,6 +26,7 @@ class GameSession(models.Model):
     streak = models.IntegerField(default=0)                     # 現在の連続正解数
     genre = models.CharField(max_length=100, default="All")     # ジャンル
 
+# アカウントデータ
 class Account(models.Model):
     username = models.CharField(max_length=10) 
     email = models.EmailField() 
