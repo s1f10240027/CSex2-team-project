@@ -458,10 +458,17 @@ def mypage(request):
                 userdata.userIcon = user_icon  
                 userdata.save() 
             return redirect(mypage)
-        
+    
+    sort_by_score = Account.objects.all().order_by('-best_score')
+    rank = 1
+    for i in sort_by_score:
+        if i.id == userdata.id:
+            break
+        rank += 1
     userIcon = getUserIcon(userdata)
     context = {
-        'user': userdata, 
+        'user': userdata,
+        'rank': rank, 
         'userIcon': userIcon,
         'corrects': len(userdata.correct_musics),
         'max_musics': len(musics),
