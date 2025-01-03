@@ -104,12 +104,13 @@ def getUserIcon(userData):
 #TOPページ
 def index(request):
     name = request.session.get('username', None)
+    userIcon = settings.STATIC_URL + 'media/nologin.png'
+    deleteSession(request)
     if name:
         user = Account.objects.get(username=name)
         userIcon = getUserIcon(user)
         return render(request, 'musiq/index.html', {'user': user, 'userIcon': userIcon})
-    deleteSession(request)
-    return render(request, "musiq/index.html", {'user': None})
+    return render(request, "musiq/index.html", {'user': None, 'userIcon': userIcon})
 
 #セッションデータを消去するための関数
 def deleteSession(request):
