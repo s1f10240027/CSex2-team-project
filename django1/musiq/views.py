@@ -1,6 +1,7 @@
 #pip install spotipy --upgrade が必須
 
 import re
+import math
 import random
 import spotipy
 from django.conf import settings
@@ -361,8 +362,60 @@ def CheckSpotify(request):
     return render(request, "musiq/CheckSpotify.html", {"result_data": result_data, "form_data": form_data, "NotFound": NotFound})   
 
 #ランキング画面
-def ranking(request):
-    return render(request, "musiq/ranking.html")
+def ranking(request, page):
+    users = Account.objects.all().order_by('-best_score')
+    your_account = None
+    sort_users = []
+    account_data = {}
+    page_last = math.ceil(len(users) / 10) 
+    start_rank = page * 10 - 9
+
+    if request.session.get('username', None):
+        your_account = Account.objects.get(username=request.session.get('username'))
+        i = 1
+        for user in users:
+            if user.id == your_account.id:
+                account_data["score"] = your_account.best_score
+                account_data["icon"] = getUserIcon(your_account)
+                account_data["rank"] = i
+                break
+            i += 1
+
+    for i in range(10):
+        rank = start_rank + i
+        try:
+            your_account_state = False
+            if your_account:
+                if users[i].id == your_account.id:
+                    your_account_state = True
+            sort_users.append(
+                {
+                    "name": users[rank -1].username, 
+                    "icon": getUserIcon(users[rank -1]),
+                    "score": users[rank -1].best_score,
+                    "rank": rank,
+                    "state": your_account_state
+                }
+            )
+        except:
+            sort_users.append(
+                {
+                    "name": '-', 
+                    "icon": settings.STATIC_URL + 'media/nologin.png',
+                    "score": '-',
+                    "rank": rank,
+                    "state": False   
+                }
+            )           
+    context = {
+        "page": page,
+        "next_page": page +1,
+        "previous_page": page -1,
+        "page_last": page_last,
+        "users": sort_users,
+        "your_account": account_data,
+    }
+    return render(request, "musiq/ranking.html", context)
 
 #ルール画面
 def rules(request):

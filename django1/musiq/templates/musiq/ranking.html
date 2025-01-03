@@ -6,29 +6,83 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{% static 'css/ranking.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/curtain.css' %}">
     </head>
     <body>
-        <h1>ランキング表示画面だよ</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>player</th>
-                    <th>score</th>
-                </tr>
-            </thead>
-            <tbody>
-              {% for player in players %}
-                <tr>
-                    <td>
-                        {{ forloop.counter }}
-                    </td>
-                    <td>
-                        {{ player.score }}
-                    </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-        </table>
+        <div class="side-curtain left-curtain"></div>
+        <div class="side-curtain right-curtain"></div>
+        <div class="topButton_container">
+            <a href="{% url 'index' %}" class="topButton">
+                <img src="{% static 'media/home.png' %}" alt="Home Icon">TOPへ
+            </a>
+        </div>
+        <div class="container">
+            <div class="header">
+                <h1>ランキング</h1>
+            </div>
+            <div class="content">
+                <table>
+                    <thead>
+                        <tr class="table-header">
+                            <th class="header-cell">No.</th>
+                            <th class="header-cell">Player</th>
+                            <th class="header-cell">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr class="table-row">
+                                <td class="row-cell rank-cell">{{ user.rank }}</td>
+                                <td class="row-cell player-cell">
+                                    <img src="{{ user.icon }}" class="user-icon" alt="icon">
+                                    {% if user.state %}
+                                        <span class="player-name color_orange">{{ user.name }}</span>
+                                    {% else %}
+                                        <span class="player-name">{{ user.name }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="row-cell score-cell">{{ user.score }}</td>
+                            </tr>
+                        {% endfor %}
+                        {% if your_account %}
+                            <tr class="space-row"></tr>
+                            <div class="your-account-container">
+                                <tr class="table-row your-account-row">
+                                    <td class="row-cell rank-cell">{{ your_account.rank }}</td>
+                                    <td class="row-cell player-cell">
+                                        <img src="{{ your_account.icon }}" class="user-icon" alt="icon">
+                                        <span class="player-name">あなた</span>
+                                    </td>
+                                    <td class="row-cell score-cell">{{ your_account.score }}</td>
+                                </tr>
+                            </div>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <footer class="ranking-footer">
+                <div class="pagination">
+                    <span>
+                        {% if page == 1 %}
+                            <span class="page-disabled">&lt;</span>
+                        {% else %}
+                            <span class="page-enabled">
+                                <a href="{% url 'ranking' previous_page %}">&lt;</a>    
+                            </span>
+                        {% endif %}
+                    </span>
+                    <span class="current-page">{{ page }}</span>
+                    <span>
+                        {% if page == page_last %}
+                            <span class="page-disabled">&gt;</span>
+                        {% else %}
+                            <span class="page-enabled">
+                                <a href="{% url 'ranking' next_page %}">&gt;</a>    
+                            </span>
+                        {% endif %}
+                    </span>
+                </div>
+            </footer>
+        </div>
     </body>
 </html>
