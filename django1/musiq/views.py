@@ -70,10 +70,10 @@ def login_view(request):
             password = request.POST["password"]
 
             if Account.objects.filter(email=email).exists():
-                messages.error(request, "このメールアドレスは既に登録されています。")
+                print(request, "このメールアドレスは既に登録されています。")
                 return render(request, 'musiq/login.html', {'username': username, 'email': email, 'password': password, 'confirm': password, 'sign_up': True})
             if Account.objects.filter(username=username).exists():
-                messages.error(request, "このユーザー名は既に使用されています。")
+                print(request, "このユーザー名は既に使用されています。")
                 return render(request, 'musiq/login.html', {'username': username, 'email': email, 'password': password, 'confirm': password, 'sign_up': True})
 
             hashed_password = make_password(password)
@@ -82,7 +82,7 @@ def login_view(request):
                 email=email,
                 password=hashed_password,
             )
-            messages.success(request, "新規登録が完了しました！")
+            print(request, "新規登録が完了しました！")
             request.session['username'] = username
             request.session.save()
             if request.session.get("return_Result", False):
@@ -239,7 +239,6 @@ def game(request, value):
         "genre": value,
         "current": GameSession.objects.get(session_id = request.session["session_id"]).current_question
     }
-    print(context)
     return render(request, 'musiq/game.html', context)
 
 #スコア計算関数
@@ -454,7 +453,6 @@ def mypage(request):
             return redirect(index)
         elif form_type == "changeIcon":
             user_icon = request.FILES.get('userIcon')
-            print(user_icon)
             if user_icon:
                 userdata.userIcon = user_icon  
                 userdata.save() 
