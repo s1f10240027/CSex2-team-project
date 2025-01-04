@@ -7,9 +7,12 @@
         <title>マイページ</title>
         <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
         <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+        <link rel="stylesheet" href="{% static 'css/curtain.css' %}">
         <script type="text/javascript" src="{% static 'javascript/mypage.js' %}"></script>
     </head>
     <body>
+        <div class="side-curtain left-curtain"></div>
+        <div class="side-curtain right-curtain"></div>
         <div class="topButton_container">
             <a href="{% url 'mypage' %}" class="topButton">
                 <img src="{% static 'media/back.png' %}" alt="Home Icon">戻る

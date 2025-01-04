@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const isPlaying = localStorage.getItem('musicPlaying');
         if (isPlaying === 'true') {
+            console.log("audio started")
             audio.loop = true;
             audio.play();
         };
