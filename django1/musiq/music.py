@@ -21,7 +21,7 @@ musics = [
     ["Realize", "Konomi Suzuki", 1],
     ["V", "Yusuke", 1],
     ["V.I.P", "SID", 1],
-    ["SPECIALZ", ""]
+    ["SPECIALZ", "King Gnu", 1],
 
     ["翼の生えた希望", "ロビン", 2],
     ["不乱不破", "HOYO-MiX", 2],   
