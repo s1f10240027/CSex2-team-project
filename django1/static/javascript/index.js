@@ -2,10 +2,11 @@ window.addEventListener('beforeunload', () => {
     localStorage.setItem('last_page', window.location.pathname);    
 });
 
+
 document.addEventListener('DOMContentLoaded', () => {
-    if (window.location.pathname == localStorage.getItem('last_page')){
-        localStorage.clear('musicPlaying'); 
-    }
+    //if (window.location.pathname == localStorage.getItem('last_page')){
+    //    localStorage.clear('musicPlaying'); 
+    //}
 
     const isPlaying = localStorage.getItem('musicPlaying');
     if (isPlaying === 'true') {
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('main-content').style.display = 'block'; // メインコンテンツを表示
         StartSuomiSpectrum()
     }else {
-        document.getElementById('overlay').style.display = 'block'; // 注意事項画面を非表示
+        document.getElementById('overlay').style.display = 'block'; // 注意事項画面を表示
     }
     
     document.getElementById('touch-start').addEventListener('click', () => {
@@ -87,6 +88,7 @@ function StartSuomiSpectrum() {
     }
 
     audio.play().catch((error) => {
+        document.getElementById('overlay').style.display = 'block';
         console.error('音楽の再生に失敗しました:', error);
     });
     drawSpectrum();
