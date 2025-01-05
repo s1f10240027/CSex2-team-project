@@ -1,5 +1,5 @@
 // 音楽再生処理
-const audio = new Audio("/static/media/ranking.mp3");
+const audio = new Audio("/static/media/bgm_ranking.mp3");
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('last_page', window.location.pathname);
     if (!(audio.paused)) {

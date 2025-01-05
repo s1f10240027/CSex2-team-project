@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = document.querySelector('.submit_button');
     const isPlaying = localStorage.getItem('musicPlaying');
     if (isPlaying === 'true') {
-        const audio = new Audio("/static/media/login.mp3");
+        const audio = new Audio("/static/media/bgm_login.mp3");
         audio.loop = true;
         audio.play();
     }

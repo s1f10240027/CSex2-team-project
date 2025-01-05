@@ -1,7 +1,18 @@
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('last_page', window.location.pathname);    
 });
+const slideshows = document.querySelectorAll('.slideshow');
 
+slideshows.forEach((slideshow) => {
+  const images = slideshow.querySelectorAll('img');
+  let currentIndex = 0;
+
+  setInterval(() => {
+    images[currentIndex].style.opacity = 0; // 現在の画像を非表示
+    currentIndex = (currentIndex + 1) % images.length; // 次の画像へ
+    images[currentIndex].style.opacity = 1; // 次の画像を表示
+  }, 3000); // 3秒ごとに切り替え
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     //if (window.location.pathname == localStorage.getItem('last_page')){
@@ -26,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function StartSuomiSpectrum() {
-    const audio = new Audio("/static/media/top.mp3");
+    const audio = new Audio("/static/media/bgm_top.mp3");
     console.log(audio)
     audio.loop = true;
 
