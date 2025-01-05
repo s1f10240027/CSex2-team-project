@@ -21,6 +21,7 @@ musics = [
     ["Realize", "Konomi Suzuki", 1],
     ["V", "Yusuke", 1],
     ["V.I.P", "SID", 1],
+    ["SPECIALZ", ""]
 
     ["翼の生えた希望", "ロビン", 2],
     ["不乱不破", "HOYO-MiX", 2],   
@@ -32,6 +33,11 @@ musics = [
     ["Reflection (Mirror Night)", "V.K", 2],
 
     ["APT.", "ROSÉ", 3],
+
+    ["青と夏", "Mrs.GREEN APPLE", 4],
+    ["怪獣の花唄", "Vaundy", 4],
+    []
+
 
     ["テトリス", "柊マグネタイト", 5],
     ["幾望の月", "なきゃむりゃ", 5],
