@@ -24,9 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
-
-
 function StartSuomiSpectrum() {
     const audio = new Audio("/static/media/top.mp3");
     console.log(audio)
@@ -64,7 +61,10 @@ function StartSuomiSpectrum() {
 
         for (let i = 0; i < bufferLength; i++) {
             const barHeight = dataArray[i];
-            const blockCount = Math.floor(barHeight / 255 * maxBlocks);
+            const threshold = 20; 
+            const blockCount = barHeight > threshold ? Math.floor((barHeight - threshold) / (255 - threshold) * maxBlocks) : 0;
+
+            
 
             const gradient = canvasContext.createLinearGradient(0, 0, canvas.width, 0);
             gradient.addColorStop(0, 'rgba(0, 255, 255, 1)');

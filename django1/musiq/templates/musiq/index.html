@@ -8,17 +8,20 @@
         <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
         <title>MusiQ</title>
         <link rel="stylesheet" href="{% static 'css/index.css' %}">
+        <link rel="stylesheet" href="{% static 'css/curtain.css' %}">
         <script type="text/javascript" src="{% static 'javascript/index.js' %}"></script>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     </head>
     <body>
+        <div class="side-curtain left-curtain"></div>
+        <div class="side-curtain right-curtain"></div>
         <div class="container">
             <div id="overlay" style="display:none;">
                 <p>このサイトでは音が流れます。<br>音量にご注意ください。</p>
                 <div class="touch-start" id="touch-start">Touch to Start...</div>
             </div>
             <div id="main-content" style="display:none;">
-                <h1 class="title">Musi<div class="q">Q</div></h1>
+                <img src="{% static 'media/logo.png' %}" class="logo" alt="MusiQ">
                 <canvas id="audio-spectrum"></canvas>
                 <button id="mute-btn" class="mute-btn">音楽を再生する</button>
                 <a class="play-button" href="{% url 'select_genre' %}">
