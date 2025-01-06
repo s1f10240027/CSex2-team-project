@@ -22,6 +22,10 @@ musics = [
     ["V", "Yusuke", 1],
     ["V.I.P", "SID", 1],
     ["SPECIALZ", "King Gnu", 1],
+    ["ライラック", "Mrs. GREEN APPLE", 1],
+    ["TAIDADA", "ZUTOMAYO", 1],
+    ["il vento d'oro", "Yugo Kanno", 1],
+    ["ピースサイン - Peace Sign", "Kenshi Yonezu", 1],
 
     ["翼の生えた希望", "ロビン", 2],
     ["不乱不破", "HOYO-MiX", 2],   
@@ -34,8 +38,11 @@ musics = [
 
     ["APT.", "ROSÉ", 3],
 
-    ["青と夏", "Mrs.GREEN APPLE", 4],
+    ["青と夏", "Mrs. GREEN APPLE", 4],
     ["怪獣の花唄", "Vaundy", 4],
+    ["ultra soul", "B'z", 4],
+    ["奏(かなで)", "Sukima Switch", 4],
+
 
     ["テトリス", "柊マグネタイト", 5],
     ["幾望の月", "なきゃむりゃ", 5],
