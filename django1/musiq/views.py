@@ -383,7 +383,7 @@ def ranking(request, page):
     users = Account.objects.all().order_by('-best_score')
     your_account = None
     sort_users = []
-    account_data = {}
+    account_data = {} 
     page_last = math.ceil(len(users) / 10) 
     start_rank = page * 10 - 9
 
@@ -403,7 +403,7 @@ def ranking(request, page):
         try:
             your_account_state = False
             if your_account:
-                if users[i].id == your_account.id:
+                if users[rank -1].id == your_account.id:
                     your_account_state = True
             sort_users.append(
                 {
