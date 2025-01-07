@@ -2,17 +2,17 @@ body {
     background: rgb(226,217,134);
     background: linear-gradient(0deg, rgba(226,217,134,1) 0%, rgba(255,250,205,1) 93%);
     margin: 0;
-    font-family: Arial, sans-serif;
+        
 }
 
 .container {
     max-width: 950px;
     margin: 0 auto;
-    padding-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;  
 }
 
 
