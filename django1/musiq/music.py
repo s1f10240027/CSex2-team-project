@@ -26,6 +26,8 @@ musics = [
     ["TAIDADA", "ZUTOMAYO", 1],
     ["il vento d'oro", "Yugo Kanno", 1],
     ["ピースサイン - Peace Sign", "Kenshi Yonezu", 1],
+    ["シルエット", "KANA-BOON", 1],
+    ["インフェルノ", "Mrs. GREEN APPLE", 1],
 
     ["翼の生えた希望", "ロビン", 2],
     ["不乱不破", "HOYO-MiX", 2],   
@@ -37,11 +39,24 @@ musics = [
     ["Reflection (Mirror Night)", "V.K", 2],
 
     ["APT.", "ROSÉ", 3],
+    ["See You Again", "Wiz Khalifa", 3],
+    ["I WANT YOU BACK", "TWICE", 3],
+    ["Wake Me Up", "Avicii", 3],
+    ["A Whole New World", "Lea Salonga", 3],
 
     ["青と夏", "Mrs. GREEN APPLE", 4],
     ["怪獣の花唄", "Vaundy", 4],
     ["ultra soul", "B'z", 4],
     ["奏(かなで)", "Sukima Switch", 4],
+    ["幾億光年", "Omoinotake", 4],
+    ["恋", "Gen Hoshino", 4],
+    ["ケセラセラ", "Mrs. GREEN APPLE", 4],
+    ["マリーゴールド", "Aimyon", 4],
+    ["ただ君に晴れ", "ヨルシカ", 4],
+    ["世界はあなたに笑いかけている", "Little Glee Monster", 4],
+    ["Subtitle", "OFFICIAL HIGE DANDISM", 4],
+    ["晩餐歌","tuki.",4],
+    ["踊り子","Vaundy",4],
 
 
     ["テトリス", "柊マグネタイト", 5],
