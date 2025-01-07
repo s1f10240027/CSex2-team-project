@@ -230,3 +230,55 @@ body {
 }
 
 
+#slider1 {
+    width: 100%;
+    height: 300px;
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    overflow: hidden; 
+}
+
+.slide-container1 {
+    display: flex;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    transform: rotate(45deg); 
+}
+
+.slide-image1 {
+    width: 60px;
+    height: 60px; 
+    object-fit: cover; 
+    margin: 0; 
+    opacity: 70%;
+}
+
+#slider2 {
+    pointer-events: none;
+    width: 100%;
+    height: 300px;
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    overflow: hidden; 
+}
+
+.slide-container2 {
+    pointer-events: none;
+    display: flex;
+    position: absolute;
+    bottom: 30px; 
+    left: 30px; 
+    transform: rotate(-135deg); 
+}
+
+.slide-image2 {
+    width: 60px;
+    height: 60px; 
+    object-fit: cover; 
+    margin: 0; 
+    opacity: 70%;
+    transform: rotate(180deg);
+}

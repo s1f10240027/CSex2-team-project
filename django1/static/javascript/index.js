@@ -1,19 +1,9 @@
+//音楽再生stateの引継ぎ
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('last_page', window.location.pathname);    
 });
-const slideshows = document.querySelectorAll('.slideshow');
 
-slideshows.forEach((slideshow) => {
-  const images = slideshow.querySelectorAll('img');
-  let currentIndex = 0;
-
-  setInterval(() => {
-    images[currentIndex].style.opacity = 0; // 現在の画像を非表示
-    currentIndex = (currentIndex + 1) % images.length; // 次の画像へ
-    images[currentIndex].style.opacity = 1; // 次の画像を表示
-  }, 3000); // 3秒ごとに切り替え
-});
-
+//注意事項の表示、スペクトラムの呼び出し
 document.addEventListener('DOMContentLoaded', () => {
     //if (window.location.pathname == localStorage.getItem('last_page')){
     //    localStorage.clear('musicPlaying'); 
@@ -36,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+//スペクトラムの描画
 function StartSuomiSpectrum() {
     const audio = new Audio("/static/media/bgm_top.mp3");
     console.log(audio)
@@ -105,7 +96,7 @@ function StartSuomiSpectrum() {
     drawSpectrum();
 
     // ミュートボタンの処理
-    document.getElementById('mute-btn').addEventListener('click', function () {
+   /* document.getElementById('mute-btn').addEventListener('click', function () {
         const button = this;
     
         if (audioContext.state === 'suspended') {
@@ -120,5 +111,40 @@ function StartSuomiSpectrum() {
             button.textContent = '音楽を再生する';
             audio.pause();
         }
-    });
+    });*/
 }
+
+//右上と左下のスライドショー
+document.addEventListener('DOMContentLoaded', () => {
+    function slideImages(containerSelector, imageSelector, rotateDeg) {
+        const container = document.querySelector(containerSelector);
+        const images = document.querySelectorAll(imageSelector);
+        const slideWidth = images[0].offsetWidth;
+        let currentPosition = 0; 
+        
+        function slide() {
+            currentPosition -= 0.5;
+            container.style.transform = `rotate(${rotateDeg}deg) translateX(${currentPosition}px)`;
+
+            if (Math.abs(currentPosition) >= slideWidth) {
+                const firstImage = container.firstElementChild;
+
+                container.style.transition = "none"; 
+                currentPosition += slideWidth; 
+                container.style.transform = `rotate(${rotateDeg}deg) translateX(${currentPosition}px)`;
+
+                container.appendChild(firstImage);
+                requestAnimationFrame(() => {
+                    container.style.transition = ""; 
+                });
+            }
+
+            requestAnimationFrame(slide);
+        }
+
+        slide();
+    }
+
+    slideImages(".slide-container1", ".slide-image1",45);
+    slideImages(".slide-container2", ".slide-image2",-135);
+});

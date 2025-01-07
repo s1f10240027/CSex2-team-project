@@ -103,14 +103,16 @@ def getUserIcon(userData):
 
 #TOPページ
 def index(request):
+    deleteSession(request)
     name = request.session.get('username', None)
     userIcon = settings.STATIC_URL + 'media/nologin.png'
-    deleteSession(request)
+    shuffle1 = random.sample(range(1, 10), 9)
+    shuffle2 = random.sample(range(1, 10), 9)
     if name:
         user = Account.objects.get(username=name)
         userIcon = getUserIcon(user)
-        return render(request, 'musiq/index.html', {'user': user, 'userIcon': userIcon})
-    return render(request, "musiq/index.html", {'user': None, 'userIcon': userIcon})
+        return render(request, 'musiq/index.html', {'user': user, 'userIcon': userIcon, 'shuffle': {1: shuffle1, 2: shuffle2}})
+    return render(request, "musiq/index.html", {'user': None, 'userIcon': userIcon, 'shuffle': {1: shuffle1, 2: shuffle2}})
 
 #セッションデータを消去するための関数
 def deleteSession(request):
@@ -292,12 +294,18 @@ def result(request):
             break
     user['rank'] = i + 1
     if i != 0:
-        high_user['username'] = sort_by_score[i-1].username
+        if sort_by_score[i-1].username == name:
+            high_user['username'] = "あなたの最高記録"
+        else:
+            high_user['username'] = sort_by_score[i-1].username
         high_user['userIcon'] = getUserIcon(sort_by_score[i-1])
         high_user['score'] = sort_by_score[i-1].best_score
         high_user['rank'] = i
     if i != (len(sort_by_score) -1):
-        low_user['username'] = sort_by_score[i+1].username
+        if sort_by_score[i+1].username == name:
+            low_user['username'] = "あなたの最高記録"
+        else:
+            low_user['username'] = sort_by_score[i+1].username
         low_user['userIcon'] = getUserIcon(sort_by_score[i+1])
         low_user['score'] = sort_by_score[i+1].best_score
         low_user['rank'] = i + 2

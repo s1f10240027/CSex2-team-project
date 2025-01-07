@@ -21,9 +21,17 @@
                 <div class="touch-start" id="touch-start">Touch to Start...</div>
             </div>
             <div id="main-content" style="display:none;">
+                {% for key, values in shuffle.items %}
+                    <div id="slider{{ key }}">
+                        <div class="slide-container{{ key }}">
+                            {% for value in values %}
+                                <img src="{% static 'media/image'%}{{ value }}.jpg" alt="Image {{ value }}" class="slide-image{{ key }}">
+                            {% endfor %}
+                        </div>
+                    </div>  
+                {% endfor %}
                 <img src="{% static 'media/logo.png' %}" class="logo" alt="MusiQ">
                 <canvas id="audio-spectrum"></canvas>
-                <button id="mute-btn" class="mute-btn">音楽を再生する</button>
                 <a class="play-button" href="{% url 'select_genre' %}">
                     <img src="{% static 'media/play-icon.png' %}" class="play-icon" alt="Play">
                 </a>
