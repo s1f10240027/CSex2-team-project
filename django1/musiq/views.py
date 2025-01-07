@@ -7,6 +7,7 @@ import spotipy
 from django.conf import settings
 from musiq.models import GameSession, Account
 from django.contrib import messages
+from django.contrib.staticfiles import finders
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.hashers import make_password, check_password
@@ -205,6 +206,14 @@ def game(request, value):
 
     options = [None] * 4
     correct_music = random.choice(request.session["matched_song"])
+    ExistState = False
+    while ExistState == False:
+        if finders.find("musics/" + correct_music[0] + ".mp3"):
+            ExistState = True
+            break
+        else:
+            correct_music = random.choice(request.session["matched_song"])
+            print("楽曲が見つかりませんでした。再度抽選します。")
     print("正解曲:")
     print(correct_music)
     
