@@ -10,12 +10,16 @@
         <link rel="stylesheet" href="./../../../static/css/rules.css">
     </head>
     <body>
+        <div class="topButton_container">
+            <a href="{% url 'index' %}" class="topButton">
+                <button alt="Home Icon">topへ</button>
+            </a>
+        </div>
         <h1>あそびかた</h1>
-        <p>1.<img src="./../../../static/media/play-icon.png" class="play-icon">を押してゲームスタート！</p>
+        <p>1.<img src="{% static 'media/play-icon' %}" class="play-icon">を押してゲームスタート！</p>
         <p>2.ジャンルを選択してね。</p>
         <p>3.一人で遊ぶか、二人で遊ぶか選択してね。</p>
         <p>4.一人モードではクリアした時間、間違えた数などでスコアが出るよ。<br>&nbsp;&nbsp;&nbsp;高いスコアを出して、ランキングに載ろう！</p>
         <p>5.それじゃ君の歌力を試してみよう！</p>
-        <button class="title" onclick="location.href='./index.html'">タイトルへ</button>
     </body>
 </html>
