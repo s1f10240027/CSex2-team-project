@@ -25,7 +25,7 @@ musics = [
     ["ライラック", "Mrs. GREEN APPLE", 1],
     ["TAIDADA", "ZUTOMAYO", 1],
     ["il vento d'oro", "Yugo Kanno", 1],
-    ["ピースサイン - Peace Sign", "Kenshi Yonezu", 1],
+    ["ピースサイン", "Kenshi Yonezu", 1],
     ["シルエット", "KANA-BOON", 1],
     ["インフェルノ", "Mrs. GREEN APPLE", 1],
 
@@ -66,4 +66,13 @@ musics = [
     ["アスノヨゾラ哨戒班", "Orangestar", 5],
     ["Palette", "ゆよゆっぺ", 5],
     ["エゴロック", "すりぃ", 5],
+    ["劣等上等", "Giga", 5],
+    ["ロキ", "Mikito P", 5],
+    ["ぽっぴっぽー", "LamazeP", 5],
+    ["砂の惑星", "hachi", 5],
+    ["深海少女", "ゆうゆ", 5],
+    ["六兆年と一夜物語", "kemu", 5],
+    ["スイートマジック", "Lon", 5],
+    ["ミリオン／ワンズ", "じん×kemu", 5],
+    ["恋スルVOC@LOID", "OSTER project", 5]
 ]
