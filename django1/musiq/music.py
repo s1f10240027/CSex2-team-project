@@ -57,6 +57,7 @@ musics = [
     ["Subtitle", "OFFICIAL HIGE DANDISM", 4],
     ["晩餐歌","tuki.",4],
     ["踊り子","Vaundy",4],
+    ["言って。", "ヨルシカ", 4],
 
 
     ["テトリス", "柊マグネタイト", 5],
