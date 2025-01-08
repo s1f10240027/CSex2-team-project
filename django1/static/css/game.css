@@ -6,7 +6,6 @@
 .container {
     max-width: 950px;
     margin: 0 auto;
-    padding: 20px;
     background: rgb(226,217,134);
     background: linear-gradient(0deg, rgba(226,217,134,1) 0%, rgba(255,250,205,1) 93%);
     display: flex;
@@ -71,6 +70,10 @@
     color: black;           
 }
 
+.clicked-incorrect {
+    background-color: rgb(35, 105, 204); 
+    color: black;           
+}
 
 #playmusic {
     width: 300px;
@@ -107,7 +110,6 @@
     margin-right: 10px;
 }
 
-/* 進行状況バーのスタイル */
 progress {
     width: 100px;
     height: 10px;
@@ -129,6 +131,13 @@ progress::-webkit-progress-value {
 
 .hidden {
     display: none;
+}
+
+.question_number {
+    color: rgb(65, 64, 64);
+    margin-top: 0;
+    font-size: 23px;
+    font-weight: bold;
 }
 
 .topButton_container {

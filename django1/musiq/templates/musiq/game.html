@@ -19,6 +19,7 @@
             </a>
         </div>
         <div class="container">
+            <div class="question_number">Question #{{ current }}</div>
             <img src="{% static 'media/secret.png' %}" id="jacket">
             <audio id="audio" src="{% static 'musics/' %}{{ title }}.mp3"></audio>
             <form action="{% url 'Ingame_savedata' %}" method="post">
