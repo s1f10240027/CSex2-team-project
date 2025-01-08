@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 isCorrect = 0;
                 IncorrectAudio.play();
+                event.target.classList.add('clicked-incorrect')
+
             }
 
             clearInterval(fadein);
