@@ -28,6 +28,10 @@ musics = [
     ["ピースサイン", "Kenshi Yonezu", 1],
     ["シルエット", "KANA-BOON", 1],
     ["インフェルノ", "Mrs. GREEN APPLE", 1],
+    ["ミックスナッツ", "OFFICIAL HIGE DANDISM", 1],
+    ["ティーンエイジブルー", "Eve", 1],
+    ["ファイトソング", "Eve", 1],
+    ["晴る", "ヨルシカ", 1],
 
     ["翼の生えた希望", "ロビン", 2],
     ["不乱不破", "HOYO-MiX", 2],   
@@ -43,6 +47,10 @@ musics = [
     ["I WANT YOU BACK", "TWICE", 3],
     ["Wake Me Up", "Avicii", 3],
     ["A Whole New World", "Lea Salonga", 3],
+    ["Roundabout", "Yes", 3],
+    ["Another One Bites The Dust", "Queen", 3],
+    ["What Do You Mean?", "Justin Bieber", 3],
+    ["Shape of You", "Ed Sheeran", 3],
 
     ["青と夏", "Mrs. GREEN APPLE", 4],
     ["怪獣の花唄", "Vaundy", 4],
@@ -58,6 +66,11 @@ musics = [
     ["晩餐歌","tuki.",4],
     ["踊り子","Vaundy",4],
     ["言って。", "ヨルシカ", 4],
+    ["Lemon", "Kenshi Yonezu", 4],
+    ["群青讃歌", "Eve", 4],
+    ["ノーダウト", "OFFICIAL HIGE DANDISM", 4],
+    ["Mela!", "Ryokuoushoku Shakai", 4],
+    
 
 
     ["テトリス", "柊マグネタイト", 5],
