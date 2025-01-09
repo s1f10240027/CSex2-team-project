@@ -66,7 +66,10 @@ musics = [
     ["晩餐歌","tuki.",4],
     ["踊り子","Vaundy",4],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     ["言って。", "ヨルシカ", 4],
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     ["Lemon", "Kenshi Yonezu", 4],
