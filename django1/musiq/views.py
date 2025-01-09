@@ -280,6 +280,53 @@ def result(request):
     name = request.session.get('username', None)
     score = request.session.get("score")
     user_icon = settings.STATIC_URL + 'media/nologin.png'
+
+    high_user = {'username': None, 'userIcon': None, 'score': None, 'rank': None}
+    low_user  = {'username': None, 'userIcon': None, 'score': None, 'rank': None}
+
+    sort_by_score = Account.objects.all().order_by('-best_score')
+    i = 0
+    rank = 1
+    for other in sort_by_score:
+        if other.best_score <= score:
+            break
+        rank += 1
+    up_rank = rank - 1
+    under_rank = rank + 1
+    try:
+        index = rank - 2
+        if sort_by_score[index].username == name:
+            if sort_by_score[index].best_score == score:
+                index -= 1
+            else:
+                high_user['username'] = "あなたの最高記録"
+            
+        if high_user['username'] == None:
+            high_user['username'] = sort_by_score[index].username
+        high_user['userIcon'] = getUserIcon(sort_by_score[index])
+        high_user['score'] = sort_by_score[index].best_score
+        high_user['rank'] = up_rank
+    except:
+        print("上位のプレイヤーが存在しません")
+
+    for i in sort_by_score:
+        print(i.username, i.best_score)
+    try:
+        index = rank - 1
+        if sort_by_score[index].username == name:
+            if sort_by_score[index].best_score == score:
+                index += 1  
+            else:
+                low_user['username'] = "あなたの最高記録"
+        if low_user['username'] == None:
+            low_user['username'] = sort_by_score[index].username
+        low_user['userIcon'] = getUserIcon(sort_by_score[index])
+        low_user['score'] = sort_by_score[index].best_score
+        low_user['rank'] = under_rank
+        print(low_user)
+    except:
+        print("下位のプレイヤーが存在しません")
+
     if name:
         AccountData = Account.objects.get(username = name)
         user_icon = getUserIcon(AccountData)
@@ -292,34 +339,7 @@ def result(request):
                 if i not in AccountData.correct_musics:
                     AccountData.correct_musics.append(i)
         AccountData.save()
-    
-    user = {'username': name, 'userIcon': user_icon, 'score': score, 'rank': None}
-    high_user = {'username': None, 'userIcon': None, 'score': None, 'rank': None}
-    low_user  = {'username': None, 'userIcon': None, 'score': None, 'rank': None}
-    sort_by_score = Account.objects.all().order_by('-best_score')
-    i = 0
-    for n in range(len(sort_by_score)):
-        i = n
-        if sort_by_score[i].best_score <= score:
-            break
-    user['rank'] = i + 1
-    if i != 0:
-        if sort_by_score[i-1].username == name:
-            high_user['username'] = "あなたの最高記録"
-        else:
-            high_user['username'] = sort_by_score[i-1].username
-        high_user['userIcon'] = getUserIcon(sort_by_score[i-1])
-        high_user['score'] = sort_by_score[i-1].best_score
-        high_user['rank'] = i
-    if i != (len(sort_by_score) -1):
-        if sort_by_score[i+1].username == name:
-            low_user['username'] = "あなたの最高記録"
-        else:
-            low_user['username'] = sort_by_score[i+1].username
-        low_user['userIcon'] = getUserIcon(sort_by_score[i+1])
-        low_user['score'] = sort_by_score[i+1].best_score
-        low_user['rank'] = i + 2
-
+    user = {'username': name, 'userIcon': user_icon, 'score': score, 'rank': rank}
     context = {
         'user': user,
         'high_user': high_user,
