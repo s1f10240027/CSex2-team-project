@@ -65,7 +65,10 @@ musics = [
     ["Subtitle", "OFFICIAL HIGE DANDISM", 4],
     ["晩餐歌","tuki.",4],
     ["踊り子","Vaundy",4],
+<<<<<<< Updated upstream
     ["言って。", "ヨルシカ", 4],
+=======
+>>>>>>> Stashed changes
     ["Lemon", "Kenshi Yonezu", 4],
     ["群青讃歌", "Eve", 4],
     ["ノーダウト", "OFFICIAL HIGE DANDISM", 4],
