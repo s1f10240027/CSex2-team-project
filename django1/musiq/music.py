@@ -70,7 +70,9 @@ musics = [
     ["群青讃歌", "Eve", 4],
     ["ノーダウト", "OFFICIAL HIGE DANDISM", 4],
     ["Mela!", "Ryokuoushoku Shakai", 4],
-    
+    ["ビターバカンス", "Mrs. GREEN APPLE", 4],
+    ["春泥棒", "ヨルシカ", 4],
+    ["さよーならまたいつか！- Sayonara", "Kenshi Yonezu", 4],
 
 
     ["テトリス", "柊マグネタイト", 5],
