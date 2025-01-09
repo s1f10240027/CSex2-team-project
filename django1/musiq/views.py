@@ -395,9 +395,9 @@ def CheckSpotify(request):
     if request.method == "POST":
         form_data["title"] = request.POST.get("title")
         form_data["artist"] = request.POST.get("artist")
-        query = f"track:{form_data["title"]}"
+        query = f"track:{form_data['title']}"
         if form_data["artist"]:
-            query += f" artist:{form_data["artist"]}"
+            query += f" artist:{form_data['artist']}"
         
         try:
             result = sp.search(q=query, type="track", limit=1)
