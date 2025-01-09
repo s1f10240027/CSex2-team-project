@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.getElementById("progress-bar");
     const message = document.getElementById("playmessage");
     let fadein, fadeout;
-    let t1, TimeDiff;
+    let t1;
+    let playingTimes = 0;
     let isCorrect;
 
     AnswerButton.forEach(button => {
@@ -20,7 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target.classList.contains('option')) {
             const newImageUrl = event.target.getAttribute('data-image');
             document.getElementById('jacket').src = newImageUrl;
-            
+            if (t1 !== null){
+                playingTimes += new Date().getTime() - t1.getTime();
+                t1 = null;
+            }
             AnswerButton.forEach(button => {
                 button.style.cursor = 'default'; 
                 button.disabled = true;
@@ -33,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const CorrectAudio = new Audio('/static/media/correct.mp3');
             const IncorrectAudio = new Audio('/static/media/incorrect.mp3');
-            TimeDiff = new Date().getTime() - t1.getTime();
             if (event.target.textContent == event.target.getAttribute('data-correct')){
                 isCorrect = 1;
                 CorrectAudio.play();
@@ -99,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (message.textContent == '次の問題へ' || message.textContent == '結果を見る') {
             if (OnlyTapNext == true) { 
                 document.getElementById('isCorrect').value = isCorrect;
-                document.getElementById('answer_time').value = TimeDiff;
+                document.getElementById('answer_time').value = playingTimes;
                 OnlyTapNext = false;
                 playButton.setAttribute("type", "submit");
             } else {
@@ -110,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (audio.paused) {
             audio.play().then(() => {
                 if (firstclick == true) {
-                    t1 = new Date();
                     AnswerButton.forEach(button => {
                         button.disabled = false;
                         button.style.cursor = 'pointer'; 
@@ -118,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         button.style.color = 'black';
                     });
                 };
+                t1 = new Date();
                 firstclick = false;
                 let fadeinNow; 
                 message.textContent = "再生中";
@@ -154,6 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             clearInterval(fadeout);
                             fadeoutState = false;
                             saveTime = 0;
+                            playingTimes += new Date().getTime() - t1.getTime();
+                            t1 = null;
                             currentTimeDisplay.textContent = "0:10 / 0:10";
                             message.textContent = "クリックで再生";
                             playButton.classList.add('paused');
@@ -181,6 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
             message.textContent = "クリックで再生";
             playButton.classList.add('paused');
             playButton.classList.remove('playing');
+            playingTimes += new Date().getTime() - t1.getTime();
+            t1 = null;
             clearInterval(fadein);
             clearInterval(fadeout);
         }

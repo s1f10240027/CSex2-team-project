@@ -260,18 +260,19 @@ def CalcScore(correct,consecutive,avetime):
 
     #正解処理
     score += (correct * 16)
-
+# - 80
     #連続ボーナス
     score += (consecutive * 2)
-
+# - 10   
     #平均回答時間
-    if avetime >= 8000:
-        score += 0
-    elif avetime <= 2000:
+    if avetime >= 10000: #10秒以上は+0
+        pass
+    elif avetime <= 2000: 
         score += 10
     else:
         score += (12 - (avetime/1000))
-
+# - 10
+# 正解数 * 16 + 連続正解数 * 2 + (12 - (平均回答時間 / 1000))
     return round(score, 2)
 
 #リザルト画面
@@ -348,6 +349,7 @@ def Ingame_savedata(request):
             
         if gamedata.current_question == 5:
             #終了時の処理
+            print(gamedata.answer_times)
             Score = CalcScore(
                 gamedata.correct, 
                 gamedata.max_streak, 
