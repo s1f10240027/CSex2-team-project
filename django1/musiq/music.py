@@ -33,6 +33,7 @@ musics = [
     ["ファイトソング", "Eve", 1],
     ["晴る", "ヨルシカ", 1],
     ["夢をかなえてドラえもん", "Mao", 1],
+    ["異世界かるてっと", "アインズ(CV:日野聡)", 1],
 
     ["翼の生えた希望", "ロビン", 2],
     ["不乱不破", "HOYO-MiX", 2],   
@@ -42,6 +43,8 @@ musics = [
     ["DA'AT -The First Seeker of Souls-", "水野健治", 2],
     ["Abstruse Dilemma", "打打だいず", 2],
     ["Reflection (Mirror Night)", "V.K", 2],
+    ["さかさま世界", "Shoko Nakagawa", 2],
+    ["Nameless Faces", "HOYO-MiX", 2],
 
     ["APT.", "ROSÉ", 3],
     ["See You Again", "Wiz Khalifa", 3],
@@ -81,10 +84,9 @@ musics = [
     ["女々しくて", "GOLDEN BOMBER", 4],
 
 
-
     ["テトリス", "柊マグネタイト", 5],
     ["幾望の月", "なきゃむりゃ", 5],
-    ["オブソミート (feat. 初音ミク&重音テト)", "32ki", 5],
+    ["オブソミート", "32ki", 5],
     ["アカリがやってきたぞっ", "GYARI(ココアシガレットP)", 5],
     ["アスノヨゾラ哨戒班", "Orangestar", 5],
     ["Palette", "ゆよゆっぺ", 5],
@@ -97,5 +99,6 @@ musics = [
     ["六兆年と一夜物語", "kemu", 5],
     ["スイートマジック", "Lon", 5],
     ["ミリオン／ワンズ", "じん×kemu", 5],
-    ["恋スルVOC@LOID", "OSTER project", 5]
+    ["恋スルVOC@LOID", "OSTER project", 5],
+    ["いろはうた", "背面８回宙返り", 5],
 ]
