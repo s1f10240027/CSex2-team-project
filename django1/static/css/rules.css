@@ -6,25 +6,40 @@ body {
     justify-content: center;
 }
 .container { 
-    height: 100vh; 
-    text-align: center;
+    height: 100vh;
 }
 
-h1{
+.box{
+    height: 300px;
+    width: 700px;
     text-align: center;
-    margin: 10;
-    font-size: 70;
+    padding: 0.2em 0.5em;
+    color: #565656;
+    background:#ffffff;
+    box-shadow: 0px 0px 0px 10px #ffffff;
+    border: dashed 2px #ffc3c3;
+    border-radius: 8px;
+    margin-left: 280px;
+    margin-top: 180px;
 }
 
 p{
-    font-size: 30;
-    margin: 20;
+    position: relative;
+    text-align: left;
+    font-size: 23px;
+    margin-left: 20px;
 }
 
-.title{
-    height: 70;
-    width: 250;
-    float: right;
+p span.wa{
+    background: linear-gradient(#f88400 50%, #4d9bc1 50%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+p span.span{
+    color: #dc4e38;
+    display: inline-block;
+    transform: skewX(-15deg);
 }
 
 .play-icon {
@@ -63,4 +78,29 @@ p{
 .topButton:hover {
     background-color: #CCCCCC; 
 }
+
+h1 {
+    width: 695px;
+    position: absolute;
+    background: #dfefff;
+    box-shadow: 0px 0px 0px 5px #dfefff;
+    border: dashed 2px white;
+    padding: 0.3em 0.5em;
+    margin-left: -15px;
+    color: #454545;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: -90px;
+  }
+  
+  h1:after {
+    position: absolute;
+    content: '';
+    left: -7px;
+    top: -7px;
+    border-width: 0 0 15px 15px;
+    border-style: solid;
+    border-color: #fff #fff #a8d4ff;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+  }
 
