@@ -459,7 +459,7 @@ def ranking(request, page):
                     "name": '-', 
                     "icon": settings.STATIC_URL + 'media/nologin.png',
                     "score": '-',
-                    "rank": rank,
+                    "rank": '-',
                     "state": False   
                 }
             )           
@@ -503,6 +503,8 @@ def mypage(request):
         if i.id == userdata.id:
             break
         rank += 1
+    if userdata.best_score == 0:
+        rank = None
     userIcon = getUserIcon(userdata)
     context = {
         'user': userdata,
