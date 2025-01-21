@@ -17,4 +17,5 @@ urlpatterns = [
     path("retry", views.retry, name="retry"),
     path("Info", views.rules, name="rules"),
     path("spotify", views.CheckSpotify, name="CheckSpotify"),
+    path("ranking/", views.ranking, name="ranking"),
 ]

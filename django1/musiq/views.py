@@ -1,4 +1,4 @@
-#pip install spotipy --upgrade が必須
+# pip install spotipy --upgrade が必須
 
 import re
 import math
@@ -12,14 +12,21 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.hashers import make_password, check_password
 from spotipy.oauth2 import SpotifyClientCredentials
+<<<<<<< Updated upstream
 from .music import musics, genres
+=======
 
-#Spotifyからのデータ取得 (動作停止済)
+# from .music import musics, genres
+>>>>>>> Stashed changes
+
+# Spotifyからのデータ取得 - Privateのため.env等での非表示は省略
 client_id = null
 client_secret = null
-auth_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+auth_manager = SpotifyClientCredentials(
+    client_id=client_id, client_secret=client_secret
+)
 sp = spotipy.Spotify(auth_manager=auth_manager)
-#================
+# ================
 
 #ログイン画面
 def login_view(request):
@@ -115,6 +122,7 @@ def index(request):
         return render(request, 'musiq/index.html', {'user': user, 'userIcon': userIcon, 'shuffle': {1: shuffle1, 2: shuffle2}})
     return render(request, "musiq/index.html", {'user': None, 'userIcon': userIcon, 'shuffle': {1: shuffle1, 2: shuffle2}})
 
+<<<<<<< Updated upstream
 #セッションデータを消去するための関数
 def deleteSession(request):
     if "session_id" in request.session:
@@ -133,10 +141,14 @@ def deleteSession(request):
     request.session.save() 
 
 #ジャンル選択画面
+=======
+
+>>>>>>> Stashed changes
 def select_genre(request):
     deleteSession(request)
     return render(request, "musiq/select_genre.html", {"genre": genres})
 
+<<<<<<< Updated upstream
 #リトライボタン入力時
 def retry(request):
     id = request.session.get("session_id")
@@ -387,6 +399,17 @@ def Ingame_savedata(request):
         return redirect(index)
 
 #Spotify曲確認画面
+=======
+
+def ranking(request):
+    return render(request, "musiq/ranking.html")
+
+
+def rules(request):
+    return render(request, "musiq/rules.html")
+
+
+>>>>>>> Stashed changes
 def CheckSpotify(request):
     result_data = None
     form_data = {"title": "", "artist": ""}
@@ -397,11 +420,16 @@ def CheckSpotify(request):
         form_data["artist"] = request.POST.get("artist")
         query = f"track:{form_data['title']}"
         if form_data["artist"]:
+<<<<<<< Updated upstream
             query += f" artist:{form_data['artist']}"
         
+=======
+            query += f" artist:{form_data["artist"]}"
+
+>>>>>>> Stashed changes
         try:
             result = sp.search(q=query, type="track", limit=1)
-            items = result['tracks']['items']
+            items = result["tracks"]["items"]
 
             if items:
                 track = items[0]
@@ -415,6 +443,7 @@ def CheckSpotify(request):
         except:
             NotFound = {"message": "曲が見つかりませんでした。"}
 
+<<<<<<< Updated upstream
     return render(request, "musiq/CheckSpotify.html", {"result_data": result_data, "form_data": form_data, "NotFound": NotFound})   
 
 #ランキング画面
@@ -527,3 +556,10 @@ def rename(request):
 
     return render(request, "musiq/mypage_rename.html", {'user': userdata})
 
+=======
+    return render(
+        request,
+        "musiq/CheckSpotify.html",
+        {"result_data": result_data, "form_data": form_data, "NotFound": NotFound},
+    )
+>>>>>>> Stashed changes
