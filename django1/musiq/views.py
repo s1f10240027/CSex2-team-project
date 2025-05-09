@@ -14,9 +14,9 @@ from django.contrib.auth.hashers import make_password, check_password
 from spotipy.oauth2 import SpotifyClientCredentials
 from .music import musics, genres
 
-#Spotifyからのデータ取得 (動作停止済)
-client_id = null
-client_secret = null
+#Spotifyからのデータ取得 
+client_id = null #既に失効済み
+client_secret = null #既に失効済み
 auth_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(auth_manager=auth_manager)
 #================
