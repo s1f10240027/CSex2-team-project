@@ -1,4 +1,4 @@
-## class7-team5-project
+## class7-team5-project (2年次チーム開発演習)
 ### タイトル　
 「MusiQ」 - "Music Questions"の略  
 ![image](/django1/static/media/logo.png)

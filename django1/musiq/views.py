@@ -1,9 +1,10 @@
 #pip install spotipy --upgrade が必須
-
+import os
 import re
 import math
 import random
 import spotipy
+from dotenv import load_dotenv
 from django.conf import settings
 from musiq.models import GameSession, Account
 from django.contrib import messages
@@ -15,8 +16,9 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from .music import musics, genres
 
 #Spotifyからのデータ取得 
-client_id = null #既に失効済み
-client_secret = null #既に失効済み
+load_dotenv()
+client_id = os.getenv('SPOTIFY_CLIENT_ID') #既に失効済み
+client_secret = os.getenv('SPOTIFY_CLIENT_SECRET') #既に失効済み
 auth_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(auth_manager=auth_manager)
 #================
